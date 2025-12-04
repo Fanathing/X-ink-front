@@ -15,7 +15,7 @@ const StyledLoginTitle = styled.div`
     margin-bottom: 16px;
   }
 
-  & a:first-child {
+  & a:nth-child(2) {
     text-decoration: underline 3px;
     text-decoration-color: #2c6aa9;
     text-underline-offset: 8px;
@@ -24,8 +24,7 @@ const StyledLoginTitle = styled.div`
   & a:visited {
     color: inherit;
   }
-
-  & a:nth-child(2) {
+  & a:first-child {
     color: #999999cc;
     text-decoration: none;
   }
