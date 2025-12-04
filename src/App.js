@@ -5,6 +5,7 @@ import ButtonPlay from './playground/ButtonPlay';
 import Header from './layouts/Header';
 import TextPlay from './playground/TextPlay';
 import Layout from './layouts/Layout';
+import InputPlay from './playground/InputPlay';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/header" element={<Header />} />
         <Route path="/text" element={<TextPlay />} />
         <Route path="/layout" element={<Layout />} />
+        <Route path="/input" element={<InputPlay />} />
       </Routes>
     </BrowserRouter>
   );
