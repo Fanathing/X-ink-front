@@ -5,7 +5,7 @@ import ButtonPlay from './playground/ButtonPlay';
 import Header from './layouts/Header';
 import TextPlay from './playground/TextPlay';
 import Layout from './layouts/Layout';
-
+import Login from './pages/Login';
 function App() {
   return (
     <BrowserRouter>
@@ -15,6 +15,7 @@ function App() {
         <Route path="/header" element={<Header />} />
         <Route path="/text" element={<TextPlay />} />
         <Route path="/layout" element={<Layout />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
