@@ -116,7 +116,7 @@ const Main = () => {
           <Text variant="title">전체 공고 목록</Text>
 
           {/* 검색 영역 */}
-          <SearchSection />
+          <SearchSection>관련 공고들을 모았어요!</SearchSection>
 
           {/* 카드 목록 */}
           <CardGrid cards={cardData} />

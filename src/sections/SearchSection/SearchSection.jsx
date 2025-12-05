@@ -24,7 +24,7 @@ const SearchRow = styled.div`
   gap: 12px;
 `;
 
-const SearchSection = () => {
+const SearchSection = ({ children }) => {
   const handleSearch = () => {
     console.log('검색 실행');
   };
@@ -42,7 +42,7 @@ const SearchSection = () => {
           options={['전체', '블록체인', '프론트', '백엔드']}
           onChange={handleFilterChange}
         />
-        <Text variant="title">관련 공고들을 모았어요!</Text>
+        <Text variant="title">{children}</Text>
       </FilterRow>
 
       {/* 검색 영역 */}
