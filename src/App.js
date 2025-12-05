@@ -7,6 +7,10 @@ import TextPlay from './playground/TextPlay';
 import Layout from './layouts/Layout';
 import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
+import InputPlay from './playground/InputPlay';
+import CardPlay from './playground/CardPlay';
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,6 +22,8 @@ function App() {
         <Route path="/layout" element={<Layout />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/company" element={<CompanyLogin />} />
+        <Route path="/input" element={<InputPlay />} />
+        <Route path="/card" element={<CardPlay />} />
       </Routes>
     </BrowserRouter>
   );
