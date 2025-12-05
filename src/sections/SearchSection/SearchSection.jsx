@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Dropdown from '../../components/Dropdown/Dropdown';
+import Dropdown from '../../components/Dropdowns/Dropdown';
 import Button from '../../components/Buttons/Button';
 import Text from '../../components/Texts/Text';
 import Input from '../../components/Inputs/Input';

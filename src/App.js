@@ -10,6 +10,9 @@ import CompanyLogin from './pages/CompanyLogin';
 import InputPlay from './playground/InputPlay';
 import CardPlay from './playground/CardPlay';
 import SearchSection from './sections/SearchSection/SearchSection';
+import BreadcrumbPlay from './playground/BreadcrumbPlay';
+import CardGrid from './sections/CardGrid/CardGrid';
+
 
 
 function App() {
@@ -26,6 +29,9 @@ function App() {
         <Route path="/input" element={<InputPlay />} />
         <Route path="/card" element={<CardPlay />} />
         <Route path="/search" element={<SearchSection />} />
+        <Route path="/breadcrumb" element={<BreadcrumbPlay />} />
+        <Route path="/cardgrid" element={<CardGrid />} />
+
       </Routes>
     </BrowserRouter>
   );

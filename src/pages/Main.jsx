@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import Text from '../components/Texts/Text';
 import Layout from '../layouts/Layout';
 import Container from '../layouts/container';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
@@ -112,8 +112,8 @@ const Main = () => {
     <Layout>
       <Container maxWidth="1260px">
         <PageWrapper>
-          {/* 페이지 제목 */}
-          <Text variant="title">전체 공고 목록</Text>
+          {/* 현재 위치 네비게이션 */}
+          <Breadcrumb variant="breadcrumb" items={['전체 공고 목록']} size="60px"/>
 
           {/* 검색 영역 */}
           <SearchSection>관련 공고들을 모았어요!</SearchSection>

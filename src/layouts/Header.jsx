@@ -52,6 +52,7 @@ const CategoryLink = styled(NavLink)`
   position: relative;
   top: -1px;
   left: -0.53px;
+  margin-right: 39.37px;
 
   /* 텍스트 스타일 */
   font-size: 18px;
@@ -92,6 +93,7 @@ const Header = () => {
         </HeaderTop>
         <HeaderCategory>
           <CategoryLink to="/">전체 공고 목록</CategoryLink>
+          <CategoryLink to="/search">구직자 탐색</CategoryLink>
         </HeaderCategory>
       </HeaderInner>
     </StyledHeaderWrap>
