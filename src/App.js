@@ -16,6 +16,7 @@ import TextsPlay from './playground/TextsPlay';
 import SpreaterPlay from './playground/SpreaterPlay';
 import StepsPlay from './playground/StepsPlay';
 import CheckPlay from './playground/CheckPlay';
+import LabelPlay from './playground/LabelPlay';
 
 
 
@@ -39,6 +40,10 @@ function App() {
         <Route path="/spreater" element={<SpreaterPlay />} />
         <Route path="/steps" element={<StepsPlay />} />
         <Route path="/check" element={<CheckPlay />} />
+        <Route path="/label" element={<LabelPlay />} />
+         
+
+        
 
       </Routes>
     </BrowserRouter>

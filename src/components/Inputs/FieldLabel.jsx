@@ -12,7 +12,7 @@ const StyledLabel = styled.label`
   color: #3F3F46;
 `;
 
-const Label = ({ children, htmlFor, ...rest }) => {
+const FieldLabel = ({ children, htmlFor, ...rest }) => {
   return (
     <StyledLabel htmlFor={htmlFor} {...rest}>
       {children}
@@ -20,4 +20,4 @@ const Label = ({ children, htmlFor, ...rest }) => {
   );
 };
 
-export default Label;
+export default FieldLabel;

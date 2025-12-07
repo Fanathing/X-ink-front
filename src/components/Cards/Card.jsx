@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import defaultImage from '../../assets/images/image.png';
 import defaultProfileImage from '../../assets/images/profile.png';
+import Label from '../Labels/Label';
 
 // ============================================
 // Card1 - 기본 카드 (276x231)
@@ -82,39 +83,6 @@ const Content = styled.div`
   flex: none;
   order: 1;
   align-self: stretch;
-  flex-grow: 0;
-`;
-
-const CardLabel = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 7px;
-  gap: 10px;
-  width: fit-content;
-  min-width: 149px;
-  height: 21px;
-  background: #f4f4f4;
-  border-radius: 4px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-
-const CardLabelText = styled.span`
-  height: 21px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  display: flex;
-  align-items: center;
-  letter-spacing: -0.014em;
-  color: #3a4044;
-  flex: none;
-  order: 0;
   flex-grow: 0;
 `;
 
@@ -254,27 +222,6 @@ const ProfileContent1 = styled.div`
   flex-grow: 0;
 `;
 
-const ProfileLabel1 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 7px;
-  gap: 10px;
-  height: 21px;
-  background: #f4f4f4;
-  border-radius: 4px;
-  flex: none;
-  flex-grow: 0;
-
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.014em;
-  color: #3a4044;
-`;
 
 const ProfileTitle1 = styled.p`
   margin: 0;
@@ -356,27 +303,6 @@ const ProfileLabels3 = styled.div`
   flex-grow: 0;
 `;
 
-const ProfileLabel3 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 7px;
-  gap: 10px;
-  height: 21px;
-  background: #eff6fb;
-  border-radius: 4px;
-  flex: none;
-  flex-grow: 0;
-
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.014em;
-  color: #3a4044;
-`;
 
 const ProfileInfo3 = styled.span`
   width: 180px;
@@ -526,27 +452,7 @@ const ProfileLabels4 = styled.div`
   flex-grow: 0;
 `;
 
-const ProfileLabel4 = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 7px;
-  gap: 10px;
-  height: 21px;
-  background: #eff6fb;
-  border-radius: 4px;
-  flex: none;
-  flex-grow: 0;
 
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 21px;
-  letter-spacing: -0.014em;
-  color: #3a4044;
-`;
 
 const ProfileInfo4 = styled.span`
   width: 180px;
@@ -598,9 +504,7 @@ const renderCardByVariant = (variant, props) => {
             </DdayWrapper>
           </Thumbnail>
           <Content>
-            <CardLabel>
-              <CardLabelText>{label}</CardLabelText>
-            </CardLabel>
+            <Label variant="primary">{label}</Label>
             <Frame>
               <CardTitle>{title}</CardTitle>
               <CardDescription>{description}</CardDescription>
@@ -626,7 +530,7 @@ const renderCardByVariant = (variant, props) => {
           <ProfileContent1>
             {labels &&
               labels.map((labelItem, index) => (
-                <ProfileLabel1 key={index}>{labelItem}</ProfileLabel1>
+                <Label key={index} variant="muted">{labelItem}</Label>
               ))}
           </ProfileContent1>
           <ProfileTitle1>{profileTitle}</ProfileTitle1>
@@ -645,7 +549,7 @@ const renderCardByVariant = (variant, props) => {
           <ProfileLabels3>
             {labels &&
               labels.map((labelItem, index) => (
-                <ProfileLabel3 key={index}>{labelItem}</ProfileLabel3>
+                <Label key={index} variant="tag">{labelItem}</Label>
               ))}
           </ProfileLabels3>
           <ProfileInfo3>{email}</ProfileInfo3>
@@ -672,7 +576,7 @@ const renderCardByVariant = (variant, props) => {
             <ProfileLabels4>
               {labels &&
                 labels.map((labelItem, index) => (
-                  <ProfileLabel4 key={index}>{labelItem}</ProfileLabel4>
+                  <Label key={index} variant="tag">{labelItem}</Label>
                 ))}
             </ProfileLabels4>
             <ProfileInfo4>{email}</ProfileInfo4>
@@ -699,7 +603,7 @@ const renderCardByVariant = (variant, props) => {
           <ProfileContent1>
             {labels &&
               labels.map((labelItem, index) => (
-                <ProfileLabel1 key={index}>{labelItem}</ProfileLabel1>
+                <Label key={index} variant="muted">{labelItem}</Label>
               ))}
           </ProfileContent1>
           <ProfileTitle1>{profileTitle}</ProfileTitle1>
@@ -716,9 +620,7 @@ const renderCardByVariant = (variant, props) => {
             </DdayWrapper>
           </Thumbnail>
           <Content>
-            <CardLabel>
-              <CardLabelText>{label}</CardLabelText>
-            </CardLabel>
+            <Label variant="primary">{label}</Label>
             <Frame>
               <CardTitle>{title}</CardTitle>
               <CardDescription>{description}</CardDescription>
