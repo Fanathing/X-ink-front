@@ -38,7 +38,7 @@ const InputPlay = () => {
       <Section>
         <SectionTitle>4. TextArea (590x200)</SectionTitle>
         {/* TextArea is a standalone component to show multi-line input with label */}
-        <TextArea label="메모" placeholder="일단 오시면 클로드 먼저 설치할 줄 아셔야 하구요 그 다음에...." />
+        <TextArea label="메모" placeholder="메모장" />
       </Section>
 
       <Section>
