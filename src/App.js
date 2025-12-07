@@ -14,6 +14,8 @@ import BreadcrumbPlay from './playground/BreadcrumbPlay';
 import CardGrid from './sections/CardGrid/CardGrid';
 import TextsPlay from './playground/TextsPlay';
 import SpreaterPlay from './playground/SpreaterPlay';
+import StepsPlay from './playground/StepsPlay';
+import CheckPlay from './playground/CheckPlay';
 
 
 
@@ -35,6 +37,8 @@ function App() {
         <Route path="/cardgrid" element={<CardGrid />} />
         <Route path="/texts" element={<TextsPlay />} />
         <Route path="/spreater" element={<SpreaterPlay />} />
+        <Route path="/steps" element={<StepsPlay />} />
+        <Route path="/check" element={<CheckPlay />} />
 
       </Routes>
     </BrowserRouter>
