@@ -29,7 +29,7 @@ const LoginButton = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/login');
+    navigate('/volunteer-login');
   };
 
   return <StyledLoginButton onClick={handleClick}>로그인</StyledLoginButton>;
