@@ -1,14 +1,24 @@
+import styled from 'styled-components';
 import Header from './Header';
 import Footer from './footer';
-import Container from './container';
 
-const Layout = ({ maxWidth, children }) => {
+const LayoutWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const MainContent = styled.main`
+  flex: 1;
+`;
+
+const Layout = ({ children }) => {
   return (
-    <>
+    <LayoutWrapper>
       <Header />
-      <Container maxWidth={maxWidth}>{children}</Container>
+      <MainContent>{children}</MainContent>
       <Footer />
-    </>
+    </LayoutWrapper>
   );
 };
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 const DropdownContainer = styled.div`
   position: relative;
@@ -12,14 +11,15 @@ const DropdownButton = styled.button`
   width: 100%;
   padding: 12px 16px;
   background-color: #ffffff;
-  border: 1px solid #ddd;
+  border: 1px solid #03407e;
   border-radius: 4px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  color: #333;
+  font-size: 17px;
+  font-weight: 700;
+  color: #03407e;
 
   &:hover {
     border-color: #03407e;
@@ -103,13 +103,6 @@ const Dropdown = ({ label, options = [], onChange, defaultValue }) => {
       )}
     </DropdownContainer>
   );
-};
-
-Dropdown.propTypes = {
-  label: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onChange: PropTypes.func,
-  defaultValue: PropTypes.string,
 };
 
 export default Dropdown;

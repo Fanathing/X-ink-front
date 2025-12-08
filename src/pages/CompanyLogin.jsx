@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
 import CompanyLoginTitle from '../components/LoginForm/CompanyLoginTitle';
-import LoginForm from '../components/LoginForm/LoginForm';
+import CompanyLoginForm from '../components/LoginForm/CompanyLoginForm';
 import LinkButton from '../components/LoginForm/LoginLinkButton';
 
 const StyledLoginPage = styled.div`
@@ -9,25 +9,7 @@ const StyledLoginPage = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  & > .login {
-  }
-
-  & > .login > .login-main {
-  }
-
-  & > .login > .login-main > .login-link-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
-
-  & > .login > .login-main > .login-link-button > p {
-    font-size: 14px;
-    font-weight: 350;
-  }
+  margin: 120px auto;
 `;
 
 const Login = () => {
@@ -37,7 +19,7 @@ const Login = () => {
         <div className="login">
           <div className="login-main">
             <CompanyLoginTitle />
-            <LoginForm />
+            <CompanyLoginForm />
             <LinkButton />
           </div>
         </div>

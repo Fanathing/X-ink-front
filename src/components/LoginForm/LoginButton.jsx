@@ -10,6 +10,8 @@ const StyledLoginButton = styled.button`
     font-size: 18px;
     font-weight: 900;
     margin-bottom: 16px;
+    cursor: pointer;
+    
   }
 `;
 
