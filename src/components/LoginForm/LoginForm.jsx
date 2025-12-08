@@ -42,11 +42,11 @@ const LoginForm = () => {
           password: state.password,
         },
         {
-          withCredentials: true, // ✅ 필수
+          withCredentials: true,
         },
       );
-
-      console.log(data);
+      window.location.href = `${process.env.REACT_APP_FRONT_URL}`;
+      alert(data.message);
     } catch (error) {
       console.log(error);
     }
