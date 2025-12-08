@@ -4,17 +4,9 @@
  */
 
 const API_BASE_URL = process.env.REACT_APP_BACK_URL || 'https://api.x-ink.store';
-console.log(process.env.REACT_APP_BACK_URL);
     // API 경로 설정
 // 백엔드가 API 명세서대로 구현하면 '/api/auth'로 변경
 const AUTH_PREFIX = '/auth'; // 현재: /auth  |  나중: /api/auth
-
-// 디버깅: 환경 변수 확인
-console.log('🔧 환경 변수 체크:');
-console.log('REACT_APP_BACK_URL:', process.env.REACT_APP_BACK_URL);
-console.log('최종 API_BASE_URL:', API_BASE_URL);
-console.log('AUTH_PREFIX:', AUTH_PREFIX);
-
 /**
  * API 요청을 위한 기본 fetch 래퍼
  */
@@ -32,9 +24,6 @@ const fetchAPI = async (endpoint, options = {}) => {
   
   try {
     const response = await fetch(fullURL, config);
-    
-    // 디버깅: 응답 상태 확인
-    console.log('📥 응답 상태:', response.status, response.statusText);
     
     // 401 Unauthorized - 로그인 필요
     if (response.status === 401) {
@@ -66,6 +55,8 @@ const fetchAPI = async (endpoint, options = {}) => {
  * 현재 로그인한 사용자 정보 가져오기
  * @returns {Promise<Object>} 사용자 정보
  */
+
+// /auth/me
 export const getCurrentUser = async () => {
   return await fetchAPI(`${AUTH_PREFIX}/me`);
 };

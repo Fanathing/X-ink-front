@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import LoginButton from '../components/Buttons/LoginButton';
-import CreateUserButton from '../components/Buttons/CreateUserButton';
-import { ProfileWithInfo, ProfileMenu } from '../components/Profile';
-import Logo from '../assets/images/Logo.png';
+import LoginButton from '../../components/Buttons/LoginButton';
+import CreateUserButton from '../../components/Buttons/CreateUserButton';
+import { ProfileWithInfo, ProfileMenu } from '../../components/Profile';
+import Logo from '../../assets/images/Logo.png';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 const StyledHeaderWrap = styled.header`
   width: 100%;
@@ -48,12 +48,12 @@ const WelcomeText = styled.div`
   font-family: 'Noto Sans KR';
   font-size: 16px;
   font-weight: 500;
-  color: #3A4044;
+  color: #3a4044;
   margin-right: 15px;
 
   strong {
     font-weight: 700;
-    color: #03407E;
+    color: #03407e;
   }
 `;
 
@@ -100,17 +100,20 @@ const CategoryLink = styled(NavLink)`
 
 const Header = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, isCompany, isKakaoUser, logout, loading } = useAuth();
+  const { user, isAuthenticated, isCompany, isKakaoUser, logout, loading } =
+    useAuth();
 
   // 디버깅: 헤더 렌더링 시 상태 확인
   console.log('🎨 Header 렌더링:', {
     isAuthenticated,
     isCompany,
-    user: user ? {
-      name: user.name || user.companyName,
-      userType: user.userType,
-      loginType: user.loginType,
-    } : null,
+    user: user
+      ? {
+          name: user.name || user.companyName,
+          userType: user.userType,
+          loginType: user.loginType,
+        }
+      : null,
     loading,
   });
 
@@ -152,9 +155,7 @@ const Header = () => {
             <HeaderTopLeft onClick={handleLogoClick}>
               <img src={Logo} alt="logo" />
             </HeaderTopLeft>
-            <HeaderTopRight>
-              {/* 로딩 중 */}
-            </HeaderTopRight>
+            <HeaderTopRight>{/* 로딩 중 */}</HeaderTopRight>
           </HeaderTop>
           <HeaderCategory>
             <CategoryLink to="/">전체 공고 목록</CategoryLink>
@@ -177,21 +178,22 @@ const Header = () => {
               <>
                 {/* 환영 메시지와 프로필 정보 */}
                 <WelcomeText>
-                  <strong>{user?.name || user?.companyName || '사용자'}</strong>님 환영합니다
+                  <strong>{user?.name || user?.companyName || '사용자'}</strong>
+                  님 환영합니다
                 </WelcomeText>
-                
+
                 {/* 프로필과 프로필 정보 표시 */}
                 <ProfileWithInfo
                   name={user?.name || user?.companyName || '사용자'}
                   subInfo={
-                    isCompany 
+                    isCompany
                       ? `채용 공고: ${user?.jobCount || 0}개`
                       : `지원한 기업: ${user?.applicationCount || 0}`
                   }
                   imageUrl={isKakaoUser ? user?.profileImage : null}
                   notificationCount={user?.notificationCount || 0}
                 />
-                
+
                 {/* 드롭다운 메뉴 */}
                 <ProfileMenu
                   variant={isCompany ? 'company' : 'user'}
@@ -212,11 +214,9 @@ const Header = () => {
         <HeaderCategory>
           {/* 전체 공고 목록은 항상 표시 */}
           <CategoryLink to="/">전체 공고 목록</CategoryLink>
-          
+
           {/* 구직자 탐색은 기업 로그인 시에만 표시 */}
-          {isCompany && (
-            <CategoryLink to="/search">구직자 탐색</CategoryLink>
-          )}
+          {isCompany && <CategoryLink to="/search">구직자 탐색</CategoryLink>}
         </HeaderCategory>
       </HeaderInner>
     </StyledHeaderWrap>

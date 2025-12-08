@@ -6,7 +6,6 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
-import { useAuth } from '../contexts/AuthContext';
 import { getJobs } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 
@@ -36,21 +35,9 @@ const ErrorMessage = styled.div`
 `;
 
 const Main = () => {
-  const { user, isAuthenticated, isCompany, loading: authLoading } = useAuth();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // 디버깅: Main 페이지 렌더링 시 상태 확인
-  console.log('📄 Main 페이지 렌더링:', {
-    isAuthenticated,
-    isCompany,
-    user: user ? {
-      name: user.name || user.companyName,
-      userType: user.userType,
-    } : null,
-    authLoading,
-  });
 
   // 공고 데이터 로드
   useEffect(() => {
@@ -58,11 +45,7 @@ const Main = () => {
       try {
         setLoading(true);
         setError(null);
-        console.log('📋 공고 목록 요청 중...');
-        
         const jobsData = await getJobs();
-        console.log('✅ 공고 목록 로드 성공:', jobsData);
-        
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => ({
           id: job.id,

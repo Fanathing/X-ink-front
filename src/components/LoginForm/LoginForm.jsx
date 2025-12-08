@@ -53,12 +53,9 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
-      console.log('📝 로그인 시도:', state.email);
 
       // API 호출
       const response = await volunteerLogin(state.email, state.password);
-      console.log('✅ 로그인 API 응답:', response);
-
       // 성공 메시지
       alert(response.message || '로그인 성공!');
 

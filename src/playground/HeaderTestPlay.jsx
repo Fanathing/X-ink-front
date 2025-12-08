@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import Header from '../layouts/Header';
+import Header from '../layouts/Headers/Header';
 import { useAuth } from '../contexts/AuthContext';
 
 const Container = styled.div`

@@ -4,6 +4,7 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
 import { AuthProvider } from './contexts/AuthContext';
+import Detail from './pages/Detail';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -22,6 +23,8 @@ import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
 import IconPlay from './playground/IconPlay';
+import CompaniesHeader from './playground/CompaniesHeader';
+import VolunteerHeader from './playground/VolunteerHeader';
 
 function App() {
   return (
@@ -34,7 +37,9 @@ function App() {
           {/* 로그인 페이지 */}
           <Route path="/volunteer-login" element={<Login />} />
           <Route path="/companies-login" element={<CompanyLogin />} />
-          
+
+          {/* 상세 페이지 */}
+          <Route path="/detail/:id" element={<Detail />} />
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
@@ -60,6 +65,9 @@ function App() {
           <Route path="/profile" element={<ProfilePlay />} />
           <Route path="/header-test" element={<HeaderTestPlay />} />
           <Route path="/icon" element={<IconPlay />} />
+          <Route path="/companies-header" element={<CompaniesHeader />} />
+          <Route path="/volunteer-header" element={<VolunteerHeader />} />
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>
