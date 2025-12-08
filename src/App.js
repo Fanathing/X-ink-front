@@ -18,6 +18,8 @@ import StepsPlay from './playground/StepsPlay';
 import CheckPlay from './playground/CheckPlay';
 import LabelPlay from './playground/LabelPlay';
 import RadioPlay from './playground/RadioPlay';
+import DropdownPlay from './playground/DropdownPlay';
+import PaginationPlay from './playground/PaginationPlay';
 
 
 
@@ -43,6 +45,10 @@ function App() {
         <Route path="/check" element={<CheckPlay />} />
         <Route path="/label" element={<LabelPlay />} />
         <Route path="/radio" element={<RadioPlay />} />
+        <Route path="/dropdown" element={<DropdownPlay />} />
+        <Route path="/pagination" element={<PaginationPlay />} />
+
+
     
       </Routes>
     </BrowserRouter>
