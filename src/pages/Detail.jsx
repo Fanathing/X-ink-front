@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
+import Breadcrumb from '../components/Navigation/Breadcrumb';
 
 
 const StyledDetail = styled.div`
@@ -11,7 +12,9 @@ const StyledDetail = styled.div`
 const Detail = () => {
     return (
       <Layout>
-        <StyledDetail>hos</StyledDetail>
+        <StyledDetail>
+          <Breadcrumb items={['공고 목록', 'react 개발자 모집']}></Breadcrumb>
+        </StyledDetail>
       </Layout>
     );
 }
