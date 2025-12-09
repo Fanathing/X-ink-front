@@ -6,22 +6,7 @@ import PasswordInput from './PasswordInput';
 import LoginButton from './LoginButton';
 import { volunteerLogin } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
-
-const initState = {
-  email: '',
-  password: '',
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'SET_EMAIL':
-      return { ...state, email: action.payload };
-    case 'SET_PASSWORD':
-      return { ...state, password: action.payload };
-    default:
-      return state;
-  }
-};
+import { initState, reducer } from '../../reducer/loginForm';
 
 const StyledLoginForm = styled.form`
   & {
@@ -32,7 +17,7 @@ const StyledLoginForm = styled.form`
 `;
 
 const ErrorMessage = styled.div`
-  color: #D92828;
+  color: #d92828;
   font-family: 'Noto Sans KR';
   font-size: 14px;
   font-weight: 500;
@@ -57,7 +42,7 @@ const LoginForm = () => {
     try {
       // API 호출
       const response = await volunteerLogin(state.email, state.password);
-      
+
       console.log('✅ 개인 로그인 API 응답:', response);
 
       // 로그인 응답에 user 데이터가 있으면 즉시 저장
@@ -81,7 +66,7 @@ const LoginForm = () => {
       navigate('/');
     } catch (error) {
       console.error('❌ 로그인 에러:', error);
-      
+
       if (error.message === 'UNAUTHORIZED') {
         setError('이메일 또는 비밀번호가 올바르지 않습니다.');
       } else if (error.message.includes('Network')) {
