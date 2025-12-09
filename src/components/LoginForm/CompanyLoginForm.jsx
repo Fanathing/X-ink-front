@@ -5,6 +5,7 @@ import EmailInput from './EmailInput';
 import PasswordInput from './PasswordInput';
 import LoginButton from './LoginButton';
 import { companiesLogin } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 const initState = {
   email: '',
@@ -46,6 +47,7 @@ const CompanyLoginForm = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login, refresh } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,18 +55,30 @@ const CompanyLoginForm = () => {
     setIsLoading(true);
 
     try {
-      // API 호출 (백엔드에서 이메일로 사용자 타입 구분)
+      // API 호출
       const response = await companiesLogin(state.email, state.password);
+      
+      console.log('✅ 기업 로그인 API 응답:', response);
+
+      // 로그인 응답에 user 데이터가 있으면 즉시 저장
+      if (response.user) {
+        console.log('🔐 로그인 처리 (user 데이터):', response.user);
+        login(response.user);
+      }
 
       // 성공 메시지
       alert(response.message || '로그인 성공!');
 
+      // 사용자 정보 새로고침 (쿠키에서 최신 정보 가져오기)
+      try {
+        await refresh();
+        console.log('✅ 사용자 정보 새로고침 완료');
+      } catch (refreshError) {
+        console.warn('⚠️ 사용자 정보 새로고침 실패 (계속 진행):', refreshError);
+      }
+
       // 메인 페이지로 이동
       navigate('/');
-
-      // 참고: refresh()는 백엔드에 /auth/me 엔드포인트가 구현되면 활성화
-      // CompanyLoginForm const { login, refresh } = useAuth();
-      // await refresh();
     } catch (error) {
       console.error('❌ 로그인 에러:', error);
       

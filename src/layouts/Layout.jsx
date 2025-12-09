@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Header from './Headers/Header';
+import Header from './Headers';
 import Footer from './footer';
 
 const LayoutWrapper = styled.div`

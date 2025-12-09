@@ -4,34 +4,39 @@
 
 ```
 src/
-├── components/          # 재사용 가능한 공통 컴포넌트
-│   ├── Buttons/        # 버튼 컴포넌트
-│   ├── Cards/          # 카드 컴포넌트
-│   ├── Inputs/         # 입력 컴포넌트
-│   ├── Texts/          # 텍스트 컴포넌트
-│   └── Dropdown/       # 드롭다운 컴포넌트
+├── service/                # 백엔드 요청 코드 파일 모음
+│   ├── API_SPEC.md/        # 요청에 대한 API 명세서 (어떻게 요청하고, 어떤 데이터가 넘어오는가?)
+│   ├── api.js/             # 백엔드 요청 엔드포인트 함수 모음
+│   ├── baseurl.config.js/  # 요청 기본 도메인 설정
+│   └── fetch.config.js/    # AJAX 모듈 fetch를 편하게 보내기 위한 설정
+├── components/             # 재사용 가능한 공통 컴포넌트
+│   ├── Buttons/            # 버튼 컴포넌트
+│   ├── Cards/              # 카드 컴포넌트
+│   ├── Inputs/             # 입력 컴포넌트
+│   ├── Texts/              # 텍스트 컴포넌트
+│   └── Dropdown/           # 드롭다운 컴포넌트
 │
-├── sections/           # 페이지 섹션 컴포넌트 (페이지 특화)
-│   ├── SearchSection/  # 검색 영역
-│   └── CardGrid/       # 카드 그리드
+├── sections/               # 페이지 섹션 컴포넌트 (페이지 특화)
+│   ├── SearchSection/      # 검색 영역
+│   └── CardGrid/           # 카드 그리드
 │
-├── pages/              # 페이지 컴포넌트 (섹션 조립)
+├── pages/                  # 페이지 컴포넌트 (섹션 조립)
 │   ├── Main.jsx
 │   ├── Login.jsx
 │   └── CompanyLogin.jsx
 │
-├── layouts/            # 레이아웃 컴포넌트
+├── layouts/                # 레이아웃 컴포넌트
 │   ├── Layout.jsx
 │   ├── Header.jsx
 │   ├── Footer.jsx
 │   └── Container.jsx
 │
-├── playground/         # 컴포넌트 테스트/개발용
+├── playground/             # 컴포넌트 테스트/개발용
 │   ├── ButtonPlay.jsx
 │   ├── CardPlay.jsx
 │   └── InputPlay.jsx
 │
-└── assets/             # 정적 자산
+└── assets/                 # 정적 자산
     └── images/
 ```
 

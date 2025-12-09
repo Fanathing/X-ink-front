@@ -90,8 +90,14 @@ const Main = () => {
       <Layout>
         <Container maxWidth="1260px">
           <PageWrapper>
-            <Breadcrumb variant="breadcrumb" items={['전체 공고 목록']} size="60px"/>
-            <ErrorMessage>{error}</ErrorMessage>
+            <Breadcrumb
+              variant="breadcrumb"
+              items={['전체 공고 목록']}
+              size="60px"
+            />
+            {/* 검색 영역 */}
+            <SearchSection>등록된 공고가 없습니다.</SearchSection>
+            <ErrorMessage>{error || '등록된 공고가 없습니다.'}</ErrorMessage>
           </PageWrapper>
         </Container>
       </Layout>
@@ -103,12 +109,16 @@ const Main = () => {
       <Container maxWidth="1260px">
         <PageWrapper>
           {/* 현재 위치 네비게이션 */}
-          <Breadcrumb variant="breadcrumb" items={['전체 공고 목록']} size="60px"/>
+          <Breadcrumb
+            variant="breadcrumb"
+            items={['전체 공고 목록']}
+            size="60px"
+          />
 
           {/* 검색 영역 */}
           <SearchSection>
-            {jobs.length > 0 
-              ? `총 ${jobs.length}개의 공고들을 모았어요!` 
+            {jobs.length > 0
+              ? `총 ${jobs.length}개의 공고들을 모았어요!`
               : '등록된 공고가 없습니다.'}
           </SearchSection>
 
@@ -116,9 +126,9 @@ const Main = () => {
           {jobs.length > 0 ? (
             <CardGrid cards={jobs} />
           ) : (
-            <LoadingMessage>등록된 공고가 없습니다.</LoadingMessage>
+            <ErrorMessage>{error || '등록된 공고가 없습니다.'}</ErrorMessage>
           )}
-          <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />
+          <Pagination currentPage={1} totalPages={Math.ceil(jobs.length / 10)} onPageChange={() => {}} />
         </PageWrapper>
       </Container>
     </Layout>

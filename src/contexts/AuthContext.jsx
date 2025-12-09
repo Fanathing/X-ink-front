@@ -1,25 +1,26 @@
+// AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getCurrentUser, logout as logoutAPI } from '../services/api';
+import { getCurrentUser } from '../services/api';
 
 const AuthContext = createContext(null);
 
-/**
- * 인증 상태 관리 Provider
- */
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 사용자 정보 로드
   const loadUser = async () => {
     try {
       setLoading(true);
       setError(null);
       const userData = await getCurrentUser();
-      setUser(userData);
+      // 원본 데이터 그대로 저장 (정규화 최소화)
+      const normalizedUser = {
+        role: userData.type, // "companies" | "volunteers"
+        ...userData.data, // NAME, EMAIL 등 평탄화
+      };
+      setUser(normalizedUser);
     } catch (err) {
-      console.error('❌ 사용자 정보 로드 실패:', err.message);
       if (err.message === 'UNAUTHORIZED') {
         setUser(null);
       } else {
@@ -30,55 +31,53 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 로그인 처리
   const login = (userData) => {
     setUser(userData);
     setLoading(false);
   };
 
-  // 로그아웃 처리
-  const logout = async () => {
-    try {
-      await logoutAPI();
-      setUser(null);
-    } catch (err) {
-      console.error('Logout error:', err);
-      // 에러가 발생해도 로컬 상태는 초기화
-      setUser(null);
-    }
+  // 임시 로그아웃
+  const logout = () => {
+    console.warn('⚠ 임시 로그아웃 (백엔드 미구현)');
+    setUser(null);
   };
 
-  // 컴포넌트 마운트 시 사용자 정보 로드
   useEffect(() => {
     loadUser();
   }, []);
 
-  const value = {
-    user,
-    loading,
-    error,
-    isAuthenticated: !!user,
-    isCompany: user?.userType === 'company',
-    isIndividual: user?.userType === 'individual',
-    isKakaoUser: user?.loginType === 'kakao',
-    login,
-    logout,
-    refresh: loadUser,
-  };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  // role 추출 (다양한 구조 지원)
+  const role = user?.role || user?.type || null;
+  
+  const isCompany = role === 'companies';
+  const isIndividual = role === 'volunteers';
+  const isKakaoUser = user?.provider === 'kakao' || user?.PROVIDER === 'kakao';
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        error,
+        role,
+        isAuthenticated: !!user,
+        isCompany,
+        isIndividual,
+        isKakaoUser,
+        login,
+        logout,
+        refresh: loadUser,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-/**
- * 인증 정보를 사용하기 위한 커스텀 훅
- * @returns {Object} 인증 관련 상태와 함수들
- */
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth must be used within AuthProvider');
   return context;
 };
 
 export default AuthContext;
-
