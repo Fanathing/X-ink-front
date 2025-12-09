@@ -6,6 +6,7 @@ import { initState, reducer } from '../../reducer/jobsCreate';
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const StyledJobsSetting = styled.form`
   display: flex;
@@ -57,10 +58,49 @@ const JobsCreateForm = () => {
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, initState);
+  //  얘가 데이터를 불러와서 채워넣는 요청
+  useEffect(() => {
+    const fetchJobInfo = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_URL}/jobs/info`,
+          { withCredentials: true },
+        );
 
-  const handleSubmit = async () => {
+        const data = res.data;
+
+        dispatch({ type: 'SET_TITLE', payload: data.title });
+        dispatch({ type: 'SET_POSITION', payload: data.position });
+        dispatch({ type: 'SET_START_LINE', payload: data.start_line });
+        dispatch({ type: 'SET_DEAD_LINE', payload: data.dead_line });
+        dispatch({
+          type: 'SET_JOB_DESCRIPTION',
+          payload: data.job_description,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchJobInfo();
+  }, []);
+
+  //   공고 수정 함수
+  const handleUpdate = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_BACK_URL}/jobs`, state, {
+      await axios.put(`${process.env.REACT_APP_BACK_URL}/jobs`, state, {
+        withCredentials: true,
+      });
+      navigate('/jobs/complete');
+    } catch (err) {
+      if (err.response) {
+        alert(err.response.data.message);
+      }
+    }
+  };
+  // 공고 삭제 함수
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_BACK_URL}/jobs`, {
         withCredentials: true,
       });
       navigate('/jobs/complete');
@@ -143,14 +183,14 @@ const JobsCreateForm = () => {
         <button
           className="update-jobs-btn"
           type="button"
-          onClick={handleSubmit}
+          onClick={handleUpdate}
         >
           수정
         </button>
         <button
           className="delete-jobs-btn"
           type="button"
-          onClick={handleSubmit}
+          onClick={handleDelete}
         >
           삭제
         </button>
