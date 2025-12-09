@@ -17,7 +17,7 @@ const StyledTitleText = styled.p`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 24px;
   font-weight: 700;
-  color: #3a4044;
+  color: ${(props) => props.color || '#3a4044'};
   line-height: 24px;
   margin: 0;
 `;
@@ -69,13 +69,17 @@ const StyledLink = styled.a`
   }
 `;
 
-const renderTextByVariant = (variant, props) => {
+const renderTextByVariant = (variant, props , color) => {
   const { children, href, ...rest } = props;
   switch (variant) {
     case 'header':
       return <StyledHeader {...rest}>{children}</StyledHeader>;
     case 'title':
-      return <StyledTitleText {...rest}>{children}</StyledTitleText>;
+      return (
+        <StyledTitleText {...rest} color={color}>
+          {children}
+        </StyledTitleText>
+      );
     case 'subtitle':
       return <StyledSubtitleText {...rest}>{children}</StyledSubtitleText>;
     case 'content':
@@ -96,8 +100,8 @@ const renderTextByVariant = (variant, props) => {
  * - variant: 'header' | 'title' | 'subtitle' | 'content' | 'link' | 'default'
  * - for variant 'link', pass `href` prop
  */
-const Text = ({ variant = 'default', ...props }) => {
-  return renderTextByVariant(variant, props);
+const Text = ({ variant = 'default', color,...props }) => {
+  return renderTextByVariant(variant, props, color);
 };
 
 export default Text;
