@@ -8,6 +8,7 @@ import JoinStep1 from './pages/JoinStep1';
 import JoinStep2 from './pages/JoinStep2';
 import JoinStep3 from './pages/JoinStep3';
 import Jobs from './pages/Jobs';
+import JobApplyForm from './pages/JobApplyForm';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -50,6 +51,9 @@ function App() {
           {/* 공고 관리 페이지 */}
           <Route path="/jobs" element={<Jobs />} />
           <Route path="/jobs/complete" element={<JobsComplete />} />
+
+          {/* 공고 지원하기 페이지 */}
+          <Route path="/jobapplyform/:id" element={<JobApplyForm />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}

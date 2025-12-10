@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import Input from '../Inputs/Input';
 import Title from './Title';
-import ButtonSelectGroup from './ButtonSeleteGroup';
-import { initState, reducer } from '../../reducer/jobsCreate';
-import { useReducer } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useReducer, useEffect } from 'react';
+import ButtonSelectGroup from '../Jobs/ButtonSeleteGroup';
+import { initState, reducer } from '../../reducer/jobApplyForm';
 import TextArea from '../Inputs/TextArea';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
-const StyledJobsSetting = styled.form`
+const StyledApplyInputs = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -37,38 +38,57 @@ const StyledJobsSetting = styled.form`
   }
 `;
 
-const JobsCreateForm = () => {
+const ApplyInputs = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <div>유저 정보를 불러오는 중입니다...</div>;
+  }
+
+  useEffect(() => {
+    dispatch({ type: 'SET_EMAIL', payload: user.EMAIL });
+    dispatch({ type: 'SET_NAME', payload: user.NAME });
+    dispatch({ type: 'SET_PHONE_NUMBER', payload: user.PHONE_NUMBER });
+    dispatch({ type: 'SET_POSITION', payload: user.POSITION });
+    dispatch({ type: 'SET_INTRO', payload: user.INTRO });
+  }, []);
+
   const navigate = useNavigate();
 
   const [state, dispatch] = useReducer(reducer, initState);
 
+  const { id } = useParams();
+
   const handleSubmit = async () => {
     try {
-      await axios.post(`${process.env.REACT_APP_BACK_URL}/jobs`, state, {
-        withCredentials: true,
-      });
-      navigate('/jobs/complete');
+      await axios.post(
+        `${process.env.REACT_APP_BACK_URL}/jobapplications/${id}`,
+        state,
+        {
+          withCredentials: true,
+        },
+      );
+      navigate(`/jobapplyform/complete/${id}`);
     } catch (err) {
       if (err.response) {
         alert(err.response.data.message);
       }
     }
   };
-
   return (
-    <StyledJobsSetting>
+    <StyledApplyInputs>
       <Title />
       <div className="inputs-first">
         <Input
           variant={'label'}
-          placeholder={'올리실 공고의 제목을 입력하세요'}
-          label={'제목 *'}
+          placeholder={'성함을 입력해주세요'}
+          label={'성명 *'}
           maxWidth={'590px'}
           height={'54px'}
           type={'text'}
-          value={state.title}
+          value={state.name}
           onChange={(e) =>
-            dispatch({ type: 'SET_TITLE', payload: e.target.value })
+            dispatch({ type: 'SET_NAME', payload: e.target.value })
           }
         />
       </div>
@@ -88,45 +108,47 @@ const JobsCreateForm = () => {
       <div className="inputs-third">
         <Input
           variant={'label'}
-          label={'시작일 *'}
+          label={'이메일 *'}
+          placeholder="이메일을 적어주세요"
           maxWidth={'287.5px'}
           height={'54px'}
-          type={'date'}
-          value={state.start_line}
+          type={'email'}
+          value={state.email}
           onChange={(e) =>
-            dispatch({ type: 'SET_START_LINE', payload: e.target.value })
+            dispatch({ type: 'SET_EMAIL', payload: e.target.value })
           }
         />
         <Input
           variant={'label'}
-          label={'마감일 *'}
+          label={'연락처 *'}
+          placeholder="연락처를 적어주세요"
           maxWidth={'287.5px'}
           height={'54px'}
-          type={'date'}
-          value={state.dead_line}
+          type={'text'}
+          value={state.phone_number}
           onChange={(e) =>
-            dispatch({ type: 'SET_DEAD_LINE', payload: e.target.value })
+            dispatch({ type: 'SET_PHONE_NUMBER', payload: e.target.value })
           }
         />
       </div>
       <div className="inputs-four">
         <TextArea
-          label="업무 설명 *"
-          placeholder="업무 설명을 입력해주세요"
+          label="자기 소개 *"
+          placeholder="자기 소개를 적어주세요"
           width={'100%'}
           maxWidth={'590px'}
           height={'200px'}
-          value={state.job_description}
+          value={state.intro}
           onChange={(e) =>
-            dispatch({ type: 'SET_JOB_DESCRIPTION', payload: e.target.value })
+            dispatch({ type: 'SET_INTRO', payload: e.target.value })
           }
         />
       </div>
       <button className="create-jobs-btn" type="button" onClick={handleSubmit}>
-        공고 등록
+        공고 지원
       </button>
-    </StyledJobsSetting>
+    </StyledApplyInputs>
   );
 };
 
-export default JobsCreateForm;
+export default ApplyInputs;
