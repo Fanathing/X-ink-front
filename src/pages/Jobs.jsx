@@ -8,6 +8,7 @@ const Jobs = () => {
   const [loading, setLoading] = useState(true);
   const [jobExists, setJobExists] = useState(null);
 
+  // 공고가 있으면 true 없으면 false
   useEffect(() => {
     const JobExists = async () => {
       try {
