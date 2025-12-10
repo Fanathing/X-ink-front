@@ -29,7 +29,7 @@ import IconPlay from './playground/IconPlay';
 import CompaniesHeader from './playground/CompaniesHeader';
 import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
-
+import JobsComplete from './pages/JobsComplete';
 function App() {
   return (
     <AuthProvider>
@@ -49,6 +49,7 @@ function App() {
 
           {/* 공고 관리 페이지 */}
           <Route path="/jobs" element={<Jobs />} />
+          <Route path="/jobs/complete" element={<JobsComplete />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
@@ -60,7 +61,7 @@ function App() {
 
           {/* Playground 라우트 (개발/테스트용) */}
           <Route path="/button" element={<ButtonPlay />} />
-          <Route path="/detail/:id" element={<Detail/>}/>
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/text" element={<TextPlay />} />
           <Route path="/input" element={<InputPlay />} />
           <Route path="/card" element={<CardPlay />} />
