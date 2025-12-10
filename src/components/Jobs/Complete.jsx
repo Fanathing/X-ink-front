@@ -1,6 +1,9 @@
 import Check from '../Check/Check';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { initState, reducer } from '../../reducer/complete';
+import { useReducer, useEffect } from 'react';
+import axios from 'axios';
 
 const StyledCompleteBox = styled.div`
   & {
@@ -57,15 +60,40 @@ const StyledCompleteBox = styled.div`
 const CompleteBox = () => {
   const navigate = useNavigate();
 
+  const [state, dispatch] = useReducer(reducer, initState);
+
   const handleSelect = (type) => {
     navigate(`${type}`);
   };
+
+  // detail page로 넘겨주기 위한 요청..파람스로 받아오는게 없어서 이렇게 처리함
+  useEffect(() => {
+    const JobInfo = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_URL}/jobs/info`,
+          { withCredentials: true },
+        );
+
+        const data = res.data;
+
+        dispatch({ type: 'SET_ID', payload: data.id });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    JobInfo();
+  }, []);
+
   return (
     <StyledCompleteBox className="complete-box">
       <Check variant={'complete'} size={'200'} />
       <h2>등록 완료!</h2>
       <div className="buttons">
-        <button className="detail-btn" onClick={() => handleSelect('/detail')}>
+        <button
+          className="detail-btn"
+          onClick={() => handleSelect(`/detail/${state.id}`)}
+        >
           상세페이지
         </button>
         <button className="retouch-btn" onClick={() => handleSelect('/jobs')}>

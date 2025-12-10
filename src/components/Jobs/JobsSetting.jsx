@@ -3,10 +3,9 @@ import Input from '../Inputs/Input';
 import Title from './Title';
 import ButtonSelectGroup from './ButtonSeleteGroup';
 import { initState, reducer } from '../../reducer/jobsCreate';
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 const StyledJobsSetting = styled.form`
   display: flex;
@@ -60,7 +59,7 @@ const JobsCreateForm = () => {
   const [state, dispatch] = useReducer(reducer, initState);
   //  얘가 데이터를 불러와서 채워넣는 요청
   useEffect(() => {
-    const fetchJobInfo = async () => {
+    const JobInfo = async () => {
       try {
         const res = await axios.get(
           `${process.env.REACT_APP_BACK_URL}/jobs/info`,
@@ -81,7 +80,7 @@ const JobsCreateForm = () => {
         console.error(err);
       }
     };
-    fetchJobInfo();
+    JobInfo();
   }, []);
 
   //   공고 수정 함수
