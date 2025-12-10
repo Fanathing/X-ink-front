@@ -31,6 +31,8 @@ import CompaniesHeader from './playground/CompaniesHeader';
 import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
 import JobsComplete from './pages/JobsComplete';
+import JobApplyComplete from './pages/JobApplyComplete';
+
 function App() {
   return (
     <AuthProvider>
@@ -54,6 +56,10 @@ function App() {
 
           {/* 공고 지원하기 페이지 */}
           <Route path="/jobapplyform/:id" element={<JobApplyForm />} />
+          <Route
+            path="/jobapplyform/complete/:id"
+            element={<JobApplyComplete />}
+          />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
