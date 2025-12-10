@@ -26,7 +26,7 @@ const Jobs = () => {
 
     if (role !== 'companies') {
       alert('해당 페이지는 기업 전용 페이지입니다.');
-      navigate('/companies-login');
+      navigate('/');
       return;
     }
   }, [authLoading, isAuthenticated, role, navigate]); // ㅈㄴ 꼬라보다가 로딩 끝나면 실행
