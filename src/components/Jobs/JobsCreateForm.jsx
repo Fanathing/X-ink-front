@@ -6,6 +6,7 @@ import { initState, reducer } from '../../reducer/jobsCreate';
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import TextArea from '../Inputs/TextArea';
 
 const StyledJobsSetting = styled.form`
   display: flex;
@@ -13,6 +14,7 @@ const StyledJobsSetting = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 30px;
+  padding: 60px 0;
 
   & > .inputs-first {
     margin-top: 10px;
@@ -109,13 +111,12 @@ const JobsCreateForm = () => {
         />
       </div>
       <div className="inputs-four">
-        <Input
-          variant={'label'}
-          placeholder={'업무 설명을 입력하세요'}
-          label={'업무설명 *'}
+        <TextArea
+          label="업무 설명 *"
+          placeholder="업무 설명을 입력해주세요"
+          width={'100%'}
           maxWidth={'590px'}
           height={'200px'}
-          type={'text'}
           value={state.job_description}
           onChange={(e) =>
             dispatch({ type: 'SET_JOB_DESCRIPTION', payload: e.target.value })

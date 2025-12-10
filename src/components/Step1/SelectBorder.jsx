@@ -24,12 +24,11 @@ const StyledSelectBorder = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 354px;
-    height: 253.8px;
   }
 
   & > .companies > .companies-box > img {
-    width: 41.67px;
-    height: 37.5px;
+    width: 44.74px;
+    height: 44.73px;
     margin-bottom: 10px;
   }
 
@@ -45,6 +44,10 @@ const StyledSelectBorder = styled.div`
     font-weight: 400;
     margin-bottom: 15px;
     color: #3a4044;
+  }
+
+  & > .companies > .companies-box > div:nth-child(7) {
+    margin-bottom: 25px;
   }
 
   & > .companies > button {
@@ -89,12 +92,11 @@ const StyledSelectBorder = styled.div`
     flex-direction: column;
     justify-content: center;
     width: 354px;
-    height: 253.8px;
   }
 
   & > .volunteer > .volunteer-box > img {
-    width: 44.67px;
-    height: 42.5px;
+    width: 44.74px;
+    height: 44.73px;
     margin-bottom: 10px;
   }
 
@@ -110,6 +112,10 @@ const StyledSelectBorder = styled.div`
     font-weight: 400;
     margin-bottom: 15px;
     color: #3a4044;
+  }
+
+  & > .volunteer > .volunteer-box > div:nth-child(7) {
+    margin-bottom: 25px;
   }
 
   & > .volunteer > button {

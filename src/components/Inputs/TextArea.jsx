@@ -19,16 +19,17 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   letter-spacing: 0.5px;
-  color: #56575F;
+  color: #56575f;
 `;
 
 const StyledTextArea = styled.textarea`
   box-sizing: border-box;
-  width: 590px;
-  height: 200px;
+  width: ${(props) => props.width || '590px'};
+  height: ${(props) => props.height || '59px'};
+  max-width: ${(props) => props.maxWidth || '590px'};
   padding: 12px 14px;
   gap: 10px;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #808080;
   border-radius: 8px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -55,6 +56,8 @@ const StyledTextArea = styled.textarea`
  * - value, onChange 등 textarea props passthrough
  */
 const TextArea = ({ label, placeholder, ...rest }) => {
+  console.log(rest);
+
   return (
     <Wrapper>
       {label && <Label>{label}</Label>}
