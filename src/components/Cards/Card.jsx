@@ -11,7 +11,7 @@ const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 10px 20px 20px;
+  padding: 10px 20px;
   width: 300px;
   height: 241px;
   background: #ffffff;
@@ -55,7 +55,7 @@ const DdayWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: flex-start;
-  padding: 0px;
+  padding: 0 0 0 10px;
   gap: 10px;
   margin: 0 auto;
   width: 140px;
@@ -406,8 +406,6 @@ const AppliedBadge = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 0px 5px;
-  gap: 10px;
   width: 62px;
   height: 21px;
   background: #ffffff;
@@ -416,9 +414,6 @@ const AppliedBadge = styled.div`
   flex: none;
   order: 1;
   flex-grow: 0;
-
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 12px;
   line-height: 21px;
@@ -478,6 +473,8 @@ const ProfileInfo4 = styled.span`
   flex-grow: 0;
 `;
 
+
+
 // ============================================
 // 카드 렌더링 함수
 // ============================================
@@ -536,7 +533,9 @@ const renderCardByVariant = (variant, props) => {
           <ProfileContent1>
             {labels &&
               labels.map((labelItem, index) => (
-                <Label key={index} variant="muted">{labelItem}</Label>
+                <Label key={index} variant="muted">
+                  {labelItem}
+                </Label>
               ))}
           </ProfileContent1>
           <ProfileTitle1>{profileTitle}</ProfileTitle1>
@@ -555,7 +554,9 @@ const renderCardByVariant = (variant, props) => {
           <ProfileLabels3>
             {labels &&
               labels.map((labelItem, index) => (
-                <Label key={index} variant="tag">{labelItem}</Label>
+                <Label key={index} variant="tag">
+                  {labelItem}
+                </Label>
               ))}
           </ProfileLabels3>
           <ProfileInfo3>{email}</ProfileInfo3>
@@ -582,7 +583,9 @@ const renderCardByVariant = (variant, props) => {
             <ProfileLabels4>
               {labels &&
                 labels.map((labelItem, index) => (
-                  <Label key={index} variant="tag">{labelItem}</Label>
+                  <Label key={index} variant="tag">
+                    {labelItem}
+                  </Label>
                 ))}
             </ProfileLabels4>
             <ProfileInfo4>{email}</ProfileInfo4>
@@ -609,11 +612,34 @@ const renderCardByVariant = (variant, props) => {
           <ProfileContent1>
             {labels &&
               labels.map((labelItem, index) => (
-                <Label key={index} variant="muted">{labelItem}</Label>
+                <Label key={index} variant="muted">
+                  {labelItem}
+                </Label>
               ))}
           </ProfileContent1>
           <ProfileTitle1>{profileTitle}</ProfileTitle1>
         </StyledProfileCard1>
+      );
+
+    // Card5 - 지원한 공고 목록 카드
+    case 'mycard':
+      return (
+        <StyledCard onClick={onClick}>
+          <Thumbnail>
+            <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
+            <DdayWrapper>
+              <DdayText>{dday}</DdayText>
+              {<AppliedBadge>지원완료!</AppliedBadge>}
+            </DdayWrapper>
+          </Thumbnail>
+          <Content>
+            <Label variant="primary">{label}</Label>
+            <Frame>
+              <CardTitle>{companyName}</CardTitle>
+              <CardDescription>{title}</CardDescription>
+            </Frame>
+          </Content>
+        </StyledCard>
       );
 
     default:

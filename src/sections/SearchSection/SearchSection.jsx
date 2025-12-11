@@ -30,7 +30,7 @@ const SearchSection = ({ children, onFilterChange, onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearch = () => {
-    console.log('검색 실행:', searchTerm);
+
     if (onSearch) {
       onSearch(searchTerm);
     }
@@ -82,7 +82,7 @@ const SearchSection = ({ children, onFilterChange, onSearch }) => {
           onKeyPress={handleKeyPress}
           onSearch={handleSearch}
         />
-        <Button label="검색" variant="blue" size="sm" onClick={handleSearch} />
+        <Button label="검색" variant="blue" size="sm" radius="4px" onClick={handleSearch} />
       </SearchRow>
     </SectionWrapper>
   );

@@ -32,7 +32,6 @@ const ErrorMessage = styled.div`
   border-radius: 12px;
 `;
 
-
 const JobApplicantSearch = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -140,9 +139,9 @@ const JobApplicantSearch = () => {
   if (loading) {
     return (
       <Layout>
-        <Container maxWidth="1260px">
+        <Container >
           <PageWrapper>
-            <Breadcrumb variant="breadcrumb" items={['전체 공고 목록']} size="60px"/>
+            <Breadcrumb variant="breadcrumb" items={['구직자 탐색']} size="60px"/>
             <LoadingMessage>구직자 목록을 불러오는 중입니다...</LoadingMessage>
           </PageWrapper>
         </Container>
@@ -154,12 +153,9 @@ const JobApplicantSearch = () => {
   if (error) {
     return (
       <Layout>
-        <Container maxWidth="1260px" padding-top="40px 0">
+        <Container>
           <PageWrapper>
-            <Breadcrumb
-              variant="breadcrumb"
-              items={['전체 공고 목록']}
-            />
+            <Breadcrumb variant="breadcrumb" items={['구직자 탐색']} />
             {/* 검색 영역 */}
             <SearchSection>등록된 구직자가 없습니다.</SearchSection>
             <ErrorMessage>{error || '등록된 공고가 없습니다.'}</ErrorMessage>
@@ -171,12 +167,12 @@ const JobApplicantSearch = () => {
 
   return (
     <Layout>
-      <Container maxWidth="1260px">
+      <Container >
         <PageWrapper>
           {/* 현재 위치 네비게이션 */}
           <Breadcrumb
             variant="breadcrumb"
-            items={['전체 공고 목록']}
+            items={['구직자 탐색']}
             size="60px"
           />
 
@@ -213,8 +209,5 @@ const JobApplicantSearch = () => {
     </Layout>
   );
 };
-
-    
-
 
 export default JobApplicantSearch;

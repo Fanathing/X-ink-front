@@ -113,19 +113,6 @@ export const AuthProvider = ({ children }) => {
   const isIndividual = normalizedRole === 'volunteers';
   const isKakaoUser = user?.provider === 'kakao' || user?.PROVIDER === 'kakao';
 
-  // 디버깅: role 추출 결과 확인
-  if (user) {
-    console.log('🔍 AuthContext - role 추출:', {
-      user,
-      role,
-      normalizedRole,
-      isCompany,
-      isIndividual,
-      hasUserType: !!user?.userType,
-      hasType: !!user?.type,
-      hasRole: !!user?.role,
-    });
-  }
 
   return (
     <AuthContext.Provider

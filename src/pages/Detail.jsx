@@ -238,14 +238,7 @@ const Detail = () => {
             <Spreater variant="thin" />
             <div className="card-position">
               <Text variant="subtitle">포지션</Text>
-              <Button
-                border={'1px solid #2C6AA9'}
-                radius={'4px'}
-                color={'#2c6aa9'}
-                backgroundColor={'#ffffff'}
-                disabled
-              
-              >
+              <Button variant="sky-outline" disabled>
                 {job.position}
               </Button>
             </div>

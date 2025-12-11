@@ -10,6 +10,7 @@ import JoinStep3 from './pages/JoinStep3';
 import Jobs from './pages/Jobs';
 import JobApplyForm from './pages/JobApplyForm';
 import JobApplicantSearch from './pages/JobApplicantSearch';
+import ApplicantManagement from './pages/ApplicantManagement';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -35,6 +36,7 @@ import JobsComplete from './pages/JobsComplete';
 import JobApplyComplete from './pages/JobApplyComplete';
 import JobApply from './pages/jobApply';
 import Myprofile from './pages/Myprofile';
+import MyApplications from './pages/MyApplications';
 
 function App() {
   return (
@@ -64,16 +66,22 @@ function App() {
             element={<JobApplyComplete />}
           />
           <Route path="/jobapply/:id" element={<JobApply />} />
+          
+          {/* 지원자 관리 페이지 */}
+          <Route path="/applicantmanagement" element={<ApplicantManagement />} />
 
           {/* 프로필 테스트 */}
           <Route path="/myprofile" element={<Myprofile />} />
           {/* 구직자 검색 페이지 */}
           <Route path="/jobapplicantsearch" element={<JobApplicantSearch />} />
+          
+          {/* 내가 지원한 공고 관리 페이지 */}
+          <Route path="/myapplications" element={<MyApplications />} />
+
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
-          {/* <Route path="/my-applications" element={<MyApplications />} /> */}
           {/* <Route path="/job-management" element={<JobManagement />} /> */}
           {/* <Route path="/applicant-management" element={<ApplicantManagement />} /> */}
           {/* <Route path="/search" element={<JobSearch />} /> */}
