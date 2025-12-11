@@ -11,7 +11,8 @@ const StyledButton = styled.button`
   font-weight: 700;
   font-size: 17px; /* Figma: 17px */
   line-height: 17px;
-  cursor: pointer;
+  cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointer'};
+  pointer-events: ${(props) => props.disabled ? 'none' : 'auto'};
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -34,9 +35,10 @@ const Button = ({
   radius,
   color,
   backgroundColor,
+  disabled,
 }) => {
   return (
-    <StyledButton variant={variant} size={size} onClick={onClick} border={border} radius={radius} color={color} backgroundColor={backgroundColor}>
+    <StyledButton variant={variant} size={size} onClick={onClick} border={border} radius={radius} color={color} backgroundColor={backgroundColor} disabled={disabled}>
       {children || label}
     </StyledButton>
   );

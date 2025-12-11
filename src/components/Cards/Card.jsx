@@ -12,8 +12,8 @@ const StyledCard = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 10px 20px 20px;
-  width: 276px;
-  height: 231px;
+  width: 300px;
+  height: 241px;
   background: #ffffff;
   border: 1px solid #838383;
   border-radius: 8px;

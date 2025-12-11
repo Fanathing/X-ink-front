@@ -3,7 +3,6 @@ import FooterText from '../components/Texts/FooterText';
 
 const StyledFooter = styled.div`
   height: 127px;
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center; // column이니까 새로 정렬

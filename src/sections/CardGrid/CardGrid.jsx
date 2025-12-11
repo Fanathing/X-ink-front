@@ -4,8 +4,10 @@ import Card from '../../components/Cards/Card';
 import { useAuth } from '../../contexts/AuthContext';
 
 const GridWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(276px, 1fr));
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: ${props => props.$cardCount <= 3 ? 'flex-start' : 'space-between'};
   gap: 20px;
   margin-top: 20px;
   width: 100%;
@@ -48,7 +50,7 @@ const CardGrid = ({ cards, variant = 'default' }) => {
   };
 
   return (
-    <GridWrapper>
+    <GridWrapper $cardCount={cards.length}>
       {cards.map((card, index) => (
         <Card 
           key={card.id || index} 

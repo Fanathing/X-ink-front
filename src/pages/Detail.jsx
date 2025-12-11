@@ -243,6 +243,8 @@ const Detail = () => {
                 radius={'4px'}
                 color={'#2c6aa9'}
                 backgroundColor={'#ffffff'}
+                disabled
+              
               >
                 {job.position}
               </Button>
