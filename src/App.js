@@ -9,6 +9,7 @@ import JoinStep2 from './pages/JoinStep2';
 import JoinStep3 from './pages/JoinStep3';
 import Jobs from './pages/Jobs';
 import JobApplyForm from './pages/JobApplyForm';
+import JobApplicantSearch from './pages/JobApplicantSearch';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -66,6 +67,8 @@ function App() {
 
           {/* 프로필 테스트 */}
           <Route path="/myprofile" element={<Myprofile />} />
+          {/* 구직자 검색 페이지 */}
+          <Route path="/jobapplicantsearch" element={<JobApplicantSearch />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}

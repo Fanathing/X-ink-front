@@ -142,14 +142,13 @@ const ProfilePlay = () => {
       <Section>
         <Title>2. ProfileWithInfo - 정보 포함 프로필</Title>
         <Description>
-          이름과 부가 정보(지원한 기업 수 등)가 함께 표시되는 프로필입니다.
+          이름과 부가 정보(지원한 기업 수 등)가 함께 표시되는 프로필입니다. 프로필 이미지는 ProfileMenu에 통합되어 표시됩니다.
         </Description>
         <ComponentWrapper>
           <ItemWrapper>
             <ProfileWithInfo
               name="홍길동"
               subInfo="지원한 기업: 1"
-              onAvatarClick={handleAvatarClick}
             />
             <Label>사용자 프로필</Label>
           </ItemWrapper>
@@ -157,21 +156,17 @@ const ProfilePlay = () => {
           <ItemWrapper>
             <ProfileWithInfo
               name="김철수"
-              subInfo="지원한 기업: 5"
-              imageUrl={kakaoProfileUrl}
-              notificationCount={3}
-              onAvatarClick={handleAvatarClick}
+              subInfo="지원한 기업: 4"
             />
-            <Label>알림 있음</Label>
+            <Label>사용자 프로필</Label>
           </ItemWrapper>
           
           <ItemWrapper>
             <ProfileWithInfo
               name="이영희"
               subInfo="지원한 기업: 12"
-              notificationCount={0}
             />
-            <Label>알림 없음</Label>
+            <Label>사용자 프로필</Label>
           </ItemWrapper>
         </ComponentWrapper>
       </Section>
@@ -253,8 +248,6 @@ const ProfilePlay = () => {
               <ProfileWithInfo
                 name="홍길동"
                 subInfo="지원한 기업: 3"
-                imageUrl={kakaoProfileUrl}
-                notificationCount={2}
               />
               <ProfileMenu
                 variant="user"
@@ -316,12 +309,6 @@ const ProfilePlay = () => {
           • <code>name</code>: 사용자/기업 이름
           <br />
           • <code>subInfo</code>: 부가 정보 (예: 지원한 기업: 1)
-          <br />
-          • <code>imageUrl</code>: 프로필 이미지 URL
-          <br />
-          • <code>notificationCount</code>: 알림 개수
-          <br />
-          • <code>onAvatarClick</code>: 아바타 클릭 핸들러
           <br /><br />
           
           <strong>ProfileMenu Props:</strong>

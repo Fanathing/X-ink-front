@@ -109,7 +109,7 @@ const Header = () => {
         navigate('/my-applications');
         break;
       case 'jobManagement':
-        navigate('/job-management');
+        navigate('/jobs');
         break;
       case 'applicantManagement':
         navigate('/applicant-management');
@@ -168,7 +168,9 @@ const Header = () => {
           <CategoryLink to="/">전체 공고 목록</CategoryLink>
 
           {/* 구직자 탐색은 기업 로그인 시에만 표시 */}
-          {isCompany && <CategoryLink to="/search">구직자 탐색</CategoryLink>}
+          {isCompany && (
+            <CategoryLink to="/jobapplicantsearch">구직자 탐색</CategoryLink>
+          )}
         </HeaderCategory>
       </HeaderInner>
     </StyledHeaderWrap>

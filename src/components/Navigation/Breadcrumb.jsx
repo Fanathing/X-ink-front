@@ -44,6 +44,7 @@ const Separator = styled.span`
 
 const Breadcrumb = ({ items, weight, size }) => {
   const navigate = useNavigate();
+  console.log(items);
 
   if (!items || items.length === 0) {
     return null;
