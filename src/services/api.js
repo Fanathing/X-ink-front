@@ -121,6 +121,17 @@ export const getJobsFiltered = async (filters = {}) => {
   });
 };
 
+/**
+ * 개별 공고 상세 정보 가져오기
+ * @param {number} jobId - 공고 ID
+ * @returns {Promise<Object>} 공고 상세 정보
+ */
+export const getJobById = async (jobId) => {
+  return await fetchAPI(`/jobs/detail/${jobId}`, {
+    method: 'GET',
+  });
+};
+
 export default {
   getCurrentUser,
   logout,
@@ -131,4 +142,5 @@ export default {
   checkServerHealth,
   getJobs,
   getJobsFiltered,
+  getJobById,
 };

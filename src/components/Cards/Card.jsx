@@ -12,11 +12,17 @@ const StyledCard = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 10px 20px 20px;
-  width: 276px;
-  height: 231px;
+  width: 300px;
+  height: 241px;
   background: #ffffff;
   border: 1px solid #838383;
   border-radius: 8px;
+  cursor: ${props => props.onClick ? 'pointer' : 'default'};
+  transition: transform 0.2s, box-shadow 0.2s;
+  
+  &:hover {
+    ${props => props.onClick ? 'transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1);' : ''}
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -490,12 +496,13 @@ const renderCardByVariant = (variant, props) => {
     profileTitle,
     bio,
     isApplied,
+    onClick,
   } = props;
   switch (variant) {
     // Card1 - 기본 카드
     case 'default':
       return (
-        <StyledCard>
+        <StyledCard onClick={onClick}>
           <Thumbnail>
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
@@ -611,7 +618,7 @@ const renderCardByVariant = (variant, props) => {
 
     default:
       return (
-        <StyledCard>
+        <StyledCard onClick={onClick}>
           <Thumbnail>
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
@@ -630,8 +637,8 @@ const renderCardByVariant = (variant, props) => {
   }
 };
 
-const Card = ({ variant = 'default', ...props }) => {
-  return renderCardByVariant(variant, props);
+const Card = ({ variant = 'default', onClick, ...props }) => {
+  return renderCardByVariant(variant, { ...props, onClick });
 };
 
 export default Card;

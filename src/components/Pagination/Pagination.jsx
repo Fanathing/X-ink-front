@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ArrowIcon, DoubleArrowIcon } from '../Icons';
 
@@ -100,6 +100,11 @@ const Pagination = ({
   maxVisiblePages = 3 
 }) => {
   const [activePage, setActivePage] = useState(currentPage);
+
+  // currentPage prop이 변경되면 activePage 동기화
+  useEffect(() => {
+    setActivePage(currentPage);
+  }, [currentPage]);
 
   const handlePageChange = (page) => {
     if (page < 1 || page > totalPages || page === activePage) return;
