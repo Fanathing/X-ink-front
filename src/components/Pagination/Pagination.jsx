@@ -11,6 +11,7 @@ const PaginationContainer = styled.div`
   width: fit-content;
   height: 32px;
   margin-left: auto; /* 오른쪽으로 밀기 */
+  margin-top: auto;
 `;
 
 

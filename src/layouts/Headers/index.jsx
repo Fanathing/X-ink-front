@@ -93,7 +93,7 @@ const Header = () => {
   const handleMenuSelect = async (menuId) => {
     switch (menuId) {
       case 'profile':
-        navigate('/myprofile');
+        navigate('/volunteer-profile');
         break;
       case 'applications':
         navigate('/myapplications');
