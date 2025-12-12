@@ -78,6 +78,9 @@ const ApplyInputs = () => {
       console.log('✅ ApplyInputs - 응답 상태:', response.status);
       console.log('✅ ApplyInputs - 완료 페이지로 이동:', `/jobapplyform/complete/${id}`);
       
+      // 지원 완료 이벤트 발생 (헤더의 지원한 기업 수 업데이트를 위해)
+      window.dispatchEvent(new CustomEvent('applicationSubmitted'));
+      
       navigate(`/jobapplyform/complete/${id}`);
     } catch (err) {
       console.error('❌ ApplyInputs - 지원 실패:', err);

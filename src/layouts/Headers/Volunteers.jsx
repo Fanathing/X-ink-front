@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import styled from "styled-components";
 import LoginButton from '../../components/Buttons/LoginButton';
 import CreateUserButton from '../../components/Buttons/CreateUserButton';
 import { ProfileWithInfo, ProfileMenu } from "../../components/Profile";
 import Logo from '../../assets/images/Logo.png';
+import { getMyApplications } from '../../services/api';
 
 const HeaderTop = styled.div`
   height: 126px;
@@ -48,14 +50,69 @@ const HeaderTopRight = styled.div`
  */
 const Volunteers = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
   const navigate = useNavigate();
+  const [applicationCount, setApplicationCount] = useState(0);
 
   // 필요한 필드만 추출 (다양한 API 응답 구조 지원)
   const userName = user?.name || user?.NAME || '사용자';
-  const applicationCount = user?.applicationCount || 0;
   const notificationCount = user?.notificationCount || 0;
   // 프로필 이미지: 업로드된 이미지 우선, 카카오 프로필 이미지, 없으면 null
   const profileImage = user?.THUMBNAIL_URL || user?.thumbnailUrl || 
     (isKakaoUser ? (user?.profileImage || user?.PROFILE_IMAGE) : null);
+
+  // 지원한 공고 수 가져오기
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setApplicationCount(0);
+      return;
+    }
+
+    const fetchApplicationCount = async () => {
+      try {
+        const applicationsData = await getMyApplications();
+        
+        // API 응답 구조에 따라 배열 추출
+        let applicationsArray = null;
+        if (applicationsData && typeof applicationsData === 'object') {
+          if (applicationsData.data && Array.isArray(applicationsData.data)) {
+            applicationsArray = applicationsData.data;
+          } else if (Array.isArray(applicationsData)) {
+            applicationsArray = applicationsData;
+          } else if (applicationsData.applications && Array.isArray(applicationsData.applications)) {
+            applicationsArray = applicationsData.applications;
+          }
+        }
+        
+        const count = applicationsArray ? applicationsArray.length : 0;
+        setApplicationCount(count);
+        console.log('📊 Volunteers - 지원한 공고 수 업데이트:', count);
+      } catch (err) {
+        console.error('❌ Volunteers - 지원한 공고 수 가져오기 실패:', err);
+        // 에러 발생 시 기본값 0 사용
+        setApplicationCount(0);
+      }
+    };
+
+    fetchApplicationCount();
+    
+    // 지원 완료 이벤트 리스너
+    const handleApplicationSubmitted = () => {
+      console.log('🔄 Volunteers - 지원 완료 이벤트 수신, 카운트 새로고침');
+      fetchApplicationCount();
+    };
+    
+    // 페이지 포커스 시마다 새로고침 (지원 후 돌아올 때)
+    const handleFocus = () => {
+      fetchApplicationCount();
+    };
+    
+    window.addEventListener('applicationSubmitted', handleApplicationSubmitted);
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('applicationSubmitted', handleApplicationSubmitted);
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [isAuthenticated]);
 
   const handleLogoClick = () => {
     navigate('/');
