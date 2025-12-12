@@ -30,7 +30,6 @@ const StyledJobApply = styled.div`
   }
   & > .detail-company-name {
     align-self: flex-start;
-    
   }
   & > .detail-company-info {
     align-self: flex-start;
@@ -47,7 +46,7 @@ const StyledJobApply = styled.div`
     & > .detail-company-info-img {
       width: 350px;
       height: 300px;
-      
+
       img {
         width: 100%;
         height: 100%;
@@ -118,7 +117,7 @@ const JobApply = () => {
   // jobDescription을 줄별로 분리
   const parseJobDescription = (description) => {
     if (!description) return [];
-    return description.split('\n').filter(line => line.trim());
+    return description.split('\n').filter((line) => line.trim());
   };
 
   const handleApply = () => {
@@ -171,9 +170,9 @@ const JobApply = () => {
     <Layout>
       <StyledJobApply>
         <div className="detail-header">
-          <Breadcrumb 
-            items={['공고 목록', job.title]} 
-            weight="700" 
+          <Breadcrumb
+            items={['공고 목록', job.title]}
+            weight="700"
             size="30px"
           />
         </div>
@@ -225,7 +224,9 @@ const JobApply = () => {
               )}
             </div>
             <div className="card-apply-button">
-              <Button variant="sky" onClick={handleApply}>지원하기</Button>
+              <Button variant="sky" onClick={handleApply}>
+                지원하기
+              </Button>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ const StyledJoin = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  gap: 40px;
 `;
 
 const stepsData = [
@@ -19,7 +20,7 @@ const stepsData = [
 
 const JoinStep1 = () => {
   return (
-    <Layout>
+    <Layout padding={'60px 0'}>
       <StyledJoin>
         <Title1 />
         <Stepper steps={stepsData} activeIndex={0} />

@@ -15,9 +15,8 @@ const StyledDetail = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px 0px;
   gap: 20px;
-  width: 1260px;
+  width: 100%;
   max-width: 1260px;
   margin: 0 auto;
 

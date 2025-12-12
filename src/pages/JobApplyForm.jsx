@@ -26,7 +26,7 @@ const JobApplyForm = () => {
   }, [authLoading, isAuthenticated, role, navigate]);
 
   return (
-    <Layout>
+    <Layout padding={'60px 0'}>
       <ApplyInputs />
     </Layout>
   );

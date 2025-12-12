@@ -34,7 +34,7 @@ import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
 import JobsComplete from './pages/JobsComplete';
 import JobApplyComplete from './pages/JobApplyComplete';
-import JobApply from './pages/jobApply';
+import JobApply from './pages/JobApply';
 import MyApplications from './pages/MyApplications';
 import VolunteerProfile from './pages/VolunteerProfile';
 
