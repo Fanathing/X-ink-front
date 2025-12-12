@@ -15,7 +15,6 @@ const StyledJobApply = styled.div`
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  padding: 0px 330px;
   gap: 20px;
   width: 100%;
 
@@ -24,7 +23,6 @@ const StyledJobApply = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 40px 0;
     gap: 10px;
     height: 36px;
   }
@@ -177,7 +175,7 @@ const JobApply = () => {
           />
         </div>
         <div className="detail-company-name">
-          <Text variant="header" className="text-left">
+          <Text variant="title" className="text-left">
             {job.companyName}
           </Text>
         </div>
