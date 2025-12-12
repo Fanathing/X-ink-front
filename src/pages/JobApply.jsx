@@ -7,8 +7,10 @@ import Text from '../components/Texts/Text';
 import Label from '../components/Labels/Label';
 import Spreater from '../components/Spreater/Spreater';
 import Button from '../components/Buttons/Button';
-import Logo from '../assets/images/Logo.png';
+import defaultImage from '../assets/images/image.png';
 import { getJobById } from '../services/api';
+import { formatDday } from '../utils/formatDday';
+import { useAuth } from '../contexts/AuthContext';
 
 const StyledJobApply = styled.div`
   display: flex;
@@ -96,6 +98,7 @@ const JobApply = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
   // status를 한글로 변환
   const getStatusText = (status) => {
@@ -128,6 +131,35 @@ const JobApply = () => {
         setLoading(true);
         setError(null);
         const jobData = await getJobById(id);
+        
+        // 현재 로그인한 사용자의 companyLogoURL 가져오기 (기업 로그인인 경우)
+        const currentUserLogoURL = user?.LOGO_URL || user?.logoUrl || user?.companyLogoURL || null;
+        const currentUserId = user?.id || user?.ID || user?.companyId || null;
+        const currentUserName = user?.NAME || user?.name || user?.companyName || null;
+        
+        // 기업 로고 URL 결정:
+        // 1. jobData.companyLogoURL (백엔드에서 직접 제공)
+        // 2. 현재 로그인한 사용자가 해당 공고의 기업 소유자인 경우에만 user.LOGO_URL 사용
+        //    - companyId로 매칭 (우선)
+        //    - companyName으로 매칭 (companyId가 없는 경우)
+        // 3. 기본 이미지
+        if (!jobData.companyLogoURL && currentUserLogoURL) {
+          let isMatch = false;
+          
+          // 방법 1: companyId로 매칭 (가장 정확)
+          if (jobData.companyId && currentUserId) {
+            isMatch = String(jobData.companyId) === String(currentUserId);
+          }
+          // 방법 2: companyName으로 매칭 (companyId가 없는 경우 - 백엔드 수정 필요)
+          else if (jobData.companyName && currentUserName) {
+            isMatch = jobData.companyName === currentUserName;
+          }
+          
+          if (isMatch) {
+            jobData.companyLogoURL = currentUserLogoURL;
+          }
+        }
+        
         setJob(jobData);
       } catch (err) {
         console.error('❌ 공고 상세 정보 로드 실패:', err);
@@ -140,7 +172,7 @@ const JobApply = () => {
     if (id) {
       fetchJob();
     }
-  }, [id]);
+  }, [id, user]); // user 정보가 변경될 때마다 다시 로드 (새로고침 시 user 로드 후 job 재처리)
 
   if (loading) {
     return (
@@ -169,7 +201,7 @@ const JobApply = () => {
       <StyledJobApply>
         <div className="detail-header">
           <Breadcrumb
-            items={['공고 목록', job.title]}
+            items={[{ label: '전체 공고 목록', link: '/' }, { label: job.title }]}
             weight="700"
             size="30px"
           />
@@ -183,13 +215,16 @@ const JobApply = () => {
           <Label variant="primary">{job.position}</Label>
           <Text>({job.volunteerCount || 0}명 지원)</Text>
           <Text variant="title" color="red">
-            {job.dday || ''}
+            {formatDday(job.dday)}
           </Text>
           <Text variant="title">{getStatusText(job.status)}</Text>
         </div>
         <div className="detail-job-info">
           <div className="detail-company-info-img">
-            <img src={Logo} alt="logo" />
+            <img 
+              src={job.companyLogoURL || defaultImage} 
+              alt="company logo" 
+            />
           </div>
           <div className="card-content">
             <Text variant="title">{job.title}</Text>

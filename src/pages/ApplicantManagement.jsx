@@ -50,7 +50,8 @@ const ApplicantManagement = () => {
         // 백엔드 응답을 profile3 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => ({
           id: job.id,
-          profileImage: defaultProfileImage, // 프로필 이미지
+          // 프로필 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
+          profileImage: job.thumbnail || defaultProfileImage,
           name: job.companyName || '구직자', // 이름 (회사명 사용)
           labels: job.position ? [job.position] : [], // 포지션을 라벨로 변환
           email: `applicant${job.id}@example.com`, // 이메일 (더미 데이터)

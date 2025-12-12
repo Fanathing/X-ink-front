@@ -8,6 +8,7 @@ import thumbnailImage from '../assets/images/image.png';
 import { getJobs } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 import { formatDday } from '../utils/formatDday';
+import { useAuth } from '../contexts/AuthContext';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -38,6 +39,7 @@ const Main = () => {
   const [filter, setFilter] = useState('전체');
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const { user } = useAuth();
   
   const ITEMS_PER_PAGE = 12; // 3줄 x 4개
 
@@ -48,17 +50,39 @@ const Main = () => {
         setLoading(true);
         setError(null);
         const jobsData = await getJobs();
+        
+        // 현재 로그인한 사용자의 companyLogoURL 가져오기 (기업 로그인인 경우)
+        const currentUserLogoURL = user?.LOGO_URL || user?.logoUrl || user?.companyLogoURL || null;
+        const currentUserId = user?.id || user?.ID || user?.companyId || null;
+        
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
-        const formattedCards = jobsData.map((job) => ({
-          id: job.id,
-          image: thumbnailImage, // TODO: 나중에 기업별 이미지 추가
-          dday: formatDday(job.dday),
-          label: job.position,
-          title: job.title,
-          companyId: job.companyId,
-          companyName: job.companyName,
-          status: job.status,
-        }));
+        const formattedCards = jobsData.map((job) => {
+          // 기업 로고 URL 결정 우선순위:
+          // 1. job.companyLogoURL (백엔드에서 직접 제공)
+          // 2. 현재 로그인한 사용자가 해당 기업의 소유자인 경우에만 user.LOGO_URL 사용
+          // 3. 기본 이미지
+          let logoURL = job.companyLogoURL;
+          
+          // 백엔드에서 companyLogoURL이 제공되지 않았고, 
+          // 현재 로그인한 사용자가 해당 공고의 기업 소유자인 경우에만 적용
+          if (!logoURL && currentUserLogoURL && job.companyId && currentUserId) {
+            // companyId와 현재 사용자 ID를 정확히 비교
+            if (String(job.companyId) === String(currentUserId)) {
+              logoURL = currentUserLogoURL;
+            }
+          }
+          
+          return {
+            id: job.id,
+            image: logoURL || thumbnailImage,
+            dday: formatDday(job.dday),
+            label: job.position,
+            title: job.title,
+            companyId: job.companyId,
+            companyName: job.companyName,
+            status: job.status,
+          };
+        });
         
         setJobs(formattedCards);
       } catch (err) {
@@ -70,7 +94,7 @@ const Main = () => {
     };
 
     fetchJobs();
-  }, []); // 컴포넌트 마운트 시 한 번만 실행
+  }, [user]); // user 정보가 변경될 때마다 다시 로드 (새로고침 시 user 로드 후 jobs 재처리)
 
   // 필터와 검색어에 따라 jobs 필터링
   const filteredJobs = useMemo(() => {

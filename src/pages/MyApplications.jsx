@@ -51,7 +51,8 @@ const MyApplications = () => {
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => ({
           id: job.id,
-          image: thumbnailImage, // TODO: 나중에 기업별 이미지 추가
+          // 기업 로고 URL이 있으면 사용, 없으면 기본 이미지
+          image: job.companyLogoURL || thumbnailImage,
           dday: formatDday(job.dday),
           label: job.position,
           title: job.title,
