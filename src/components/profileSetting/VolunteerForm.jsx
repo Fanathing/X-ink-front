@@ -7,7 +7,7 @@ import { initState, reducer } from '../../reducer/ProfileForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const StyledProfileForm = styled.div`
+const StyledVolunteerForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -19,6 +19,7 @@ const StyledProfileForm = styled.div`
     flex-direction: row;
     gap: 30px;
   }
+
   & > button {
     width: 100%;
     max-width: 931px;
@@ -31,7 +32,8 @@ const StyledProfileForm = styled.div`
     border-radius: 4px;
   }
 `;
-const ProfileForm = ({ user }) => {
+
+const VolunteerForm = ({ user }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const navigate = useNavigate();
@@ -63,7 +65,7 @@ const ProfileForm = ({ user }) => {
   };
 
   return (
-    <StyledProfileForm>
+    <StyledVolunteerForm>
       <div className="input-first">
         <Input
           variant={'label'}
@@ -118,8 +120,8 @@ const ProfileForm = ({ user }) => {
       <button type="button" onClick={handleSubmit}>
         프로필 등록
       </button>
-    </StyledProfileForm>
+    </StyledVolunteerForm>
   );
 };
 
-export default ProfileForm;
+export default VolunteerForm;
