@@ -22,7 +22,6 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: 700;
   color: #3A4044;
@@ -30,7 +29,6 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-  font-family: 'Noto Sans KR';
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
@@ -55,7 +53,6 @@ const ItemWrapper = styled.div`
 `;
 
 const Label = styled.span`
-  font-family: 'Noto Sans KR';
   font-size: 12px;
   color: #666;
   text-align: center;
@@ -66,7 +63,6 @@ const EventLog = styled.div`
   padding: 15px;
   background: #e3f2fd;
   border-radius: 8px;
-  font-family: 'Noto Sans KR';
   font-size: 14px;
   color: #333;
   min-height: 50px;

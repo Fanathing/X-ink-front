@@ -17,7 +17,6 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: 700;
   color: #3A4044;

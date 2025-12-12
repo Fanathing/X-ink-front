@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const StyledLabel = styled.label`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 350;
   font-size: 14px;
   line-height: 17px;

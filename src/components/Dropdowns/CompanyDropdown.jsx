@@ -50,8 +50,6 @@ const TextWrap = styled.div`
 `;
 
 const ItemText = styled.span`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 17px;
   line-height: 20px;
@@ -74,7 +72,6 @@ const DropdownButton = styled.button`
   background: #FFFFFF;
   border: 1px solid rgba(131, 131, 131, 0.6);
   border-radius: 8px;
-  font-family: 'Noto Sans KR';
   font-weight: 700;
   font-size: 17px;
   color: #3A4044;

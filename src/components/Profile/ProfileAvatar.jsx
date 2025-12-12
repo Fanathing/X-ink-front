@@ -51,8 +51,6 @@ const NotificationCount = styled.span`
   height: 17px;
   left: 10px;
   top: 11px;
-  font-family: 'Inter';
-  font-style: normal;
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;

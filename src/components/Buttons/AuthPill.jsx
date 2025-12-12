@@ -10,7 +10,6 @@ const Pill = styled.button`
   border-radius: 16px;
   border: none;
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 700;
   font-size: 13px;
   line-height: 28px;

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Content = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 16.7px;
   line-height: 22px;

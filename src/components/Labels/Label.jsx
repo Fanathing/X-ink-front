@@ -9,8 +9,6 @@ const Wrapper = styled.div`
   height: 21px;
   background: #f4f4f4;
   border-radius: 4px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;

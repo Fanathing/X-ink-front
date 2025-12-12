@@ -12,7 +12,6 @@ const Wrapper = styled.div`
 const Label = styled.label`
   width: 590px;
   height: 16px;
-  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
@@ -32,7 +31,6 @@ const StyledTextArea = styled.textarea`
   background: #ffffff;
   border: 1px solid #808080;
   border-radius: 8px;
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;

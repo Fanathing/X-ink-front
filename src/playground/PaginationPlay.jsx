@@ -17,7 +17,6 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: 700;
   color: #3A4044;
@@ -25,14 +24,12 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-  font-family: 'Noto Sans KR';
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
 `;
 
 const CurrentPageInfo = styled.div`
-  font-family: 'Noto Sans KR';
   font-size: 16px;
   font-weight: 700;
   color: #03407E;
@@ -51,7 +48,6 @@ const ContentBox = styled.div`
   padding: 40px;
   border-radius: 8px;
   text-align: center;
-  font-family: 'Noto Sans KR';
   font-size: 18px;
   color: #333;
   margin-bottom: 20px;

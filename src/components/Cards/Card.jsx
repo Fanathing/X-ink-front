@@ -66,8 +66,6 @@ const DdayWrapper = styled.div`
 `;
 
 const DdayText = styled.span`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
@@ -109,8 +107,6 @@ const Frame = styled.div`
 
 const CardTitle = styled.p`
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 19px;
   line-height: 19px;
@@ -122,8 +118,6 @@ const CardTitle = styled.p`
 
 const CardDescription = styled.p`
   margin: 0;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
@@ -187,8 +181,6 @@ const PersonalInfo1 = styled.div`
 `;
 
 const ProfileRole1 = styled.span`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 18.8px;
   line-height: 24px;
@@ -201,8 +193,6 @@ const ProfileRole1 = styled.span`
 const ProfileEmail1 = styled.span`
   width: 170px;
   height: 20px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 140%;
@@ -233,8 +223,6 @@ const ProfileTitle1 = styled.p`
   margin: 0;
   width: 260px;
   height: 24px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -276,8 +264,6 @@ const ProfileImage3 = styled.img`
 const ProfileName3 = styled.span`
   width: 180px;
   height: 20px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -313,8 +299,6 @@ const ProfileLabels3 = styled.div`
 const ProfileInfo3 = styled.span`
   width: 180px;
   height: 20px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
@@ -386,8 +370,6 @@ const ProfileNameWrapper4 = styled.div`
 const ProfileName4 = styled.span`
   width: 50px;
   height: 20px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
@@ -458,8 +440,6 @@ const ProfileLabels4 = styled.div`
 const ProfileInfo4 = styled.span`
   width: 180px;
   height: 20px;
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;

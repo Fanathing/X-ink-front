@@ -11,7 +11,6 @@ const StyledGhost = styled.button`
   border-radius: 6px;
   border: none;
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   font-size: 20px;
   color: #56575F;

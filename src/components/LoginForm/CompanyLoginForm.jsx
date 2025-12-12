@@ -18,7 +18,6 @@ const StyledLoginForm = styled.form`
 
 const ErrorMessage = styled.div`
   color: #d92828;
-  font-family: 'Noto Sans KR';
   font-size: 14px;
   font-weight: 500;
   text-align: center;

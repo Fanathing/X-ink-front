@@ -19,8 +19,6 @@ const InfoContainer = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 18.8px;
   line-height: 24px;
@@ -31,8 +29,6 @@ const Name = styled.div`
 `;
 
 const SubInfo = styled.div`
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;

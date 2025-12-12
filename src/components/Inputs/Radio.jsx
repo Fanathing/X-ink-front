@@ -18,7 +18,6 @@ const OptionLabel = styled.label`
   align-items: center;
   gap: 8px;
   cursor: pointer;
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   color: ${(p) => (p.active ? '#03407E' : '#000')};
 `;

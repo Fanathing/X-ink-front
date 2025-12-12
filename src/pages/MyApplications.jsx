@@ -16,7 +16,6 @@ const PageWrapper = styled.div`
 const LoadingMessage = styled.div`
   text-align: center;
   padding: 60px;
-  font-family: 'Noto Sans KR';
   font-size: 18px;
   color: #666;
 `;
@@ -24,7 +23,6 @@ const LoadingMessage = styled.div`
 const ErrorMessage = styled.div`
   text-align: center;
   padding: 60px;
-  font-family: 'Noto Sans KR';
   font-size: 18px;
   color: #d92828;
   background: #ffe8e8;

@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const StyledHeader = styled.h1`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 20.6px;
   line-height: 40px;
@@ -14,7 +12,6 @@ const StyledHeader = styled.h1`
 `;
 
 const StyledTitleText = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 24px;
   font-weight: 700;
   color: ${(props) => props.color || '#3a4044'};
@@ -23,7 +20,6 @@ const StyledTitleText = styled.p`
 `;
 
 const StyledSubtitleText = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
   font-weight: 700;
   color: #3a4044;
@@ -34,7 +30,6 @@ const StyledSubtitleText = styled.p`
 `;
 
 const StyledContentText = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 16.7px;
   font-weight: 500;
   color: #3A4044;
@@ -46,7 +41,6 @@ const StyledContentText = styled.p`
 `;
 
 const StyledDefaultText = styled.p`
-  font-family: 'Noto Sans KR', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: black;
@@ -56,7 +50,6 @@ const StyledDefaultText = styled.p`
 `;
 
 const StyledLink = styled.a`
-  font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 400;
   line-height: 18px;

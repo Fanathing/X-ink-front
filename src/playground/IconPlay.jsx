@@ -16,7 +16,7 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Noto Sans KR';
+
   font-size: 24px;
   font-weight: 700;
   color: #3a4044;
@@ -24,7 +24,7 @@ const Title = styled.h2`
 `;
 
 const Description = styled.p`
-  font-family: 'Noto Sans KR';
+
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
@@ -52,7 +52,7 @@ const IconItem = styled.div`
 `;
 
 const Label = styled.span`
-  font-family: 'Noto Sans KR';
+
   font-size: 12px;
   color: #666;
   text-align: center;

@@ -22,7 +22,6 @@ const Section = styled.div`
 `;
 
 const Title = styled.h2`
-  font-family: 'Noto Sans KR';
   font-size: 24px;
   font-weight: 700;
   color: #3A4044;
@@ -42,7 +41,6 @@ const TestButton = styled.button`
   color: ${props => props.$primary ? '#fff' : '#03407E'};
   border: 2px solid #03407E;
   border-radius: 8px;
-  font-family: 'Noto Sans KR';
   font-weight: 700;
   font-size: 14px;
   cursor: pointer;
@@ -57,7 +55,6 @@ const InfoBox = styled.div`
   background: #e3f2fd;
   padding: 20px;
   border-radius: 8px;
-  font-family: 'Noto Sans KR';
   font-size: 14px;
   color: #333;
   margin-top: 20px;
@@ -89,7 +86,7 @@ const ContentArea = styled.div`
   text-align: center;
 
   h1 {
-    font-family: 'Noto Sans KR';
+
     font-size: 32px;
     font-weight: 700;
     color: #3A4044;
@@ -97,7 +94,7 @@ const ContentArea = styled.div`
   }
 
   p {
-    font-family: 'Noto Sans KR';
+
     font-size: 16px;
     color: #666;
     line-height: 1.6;

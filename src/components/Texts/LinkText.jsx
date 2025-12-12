@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 const Link = styled.a`
-  font-family: 'Inter', sans-serif;
-  font-style: normal;
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;

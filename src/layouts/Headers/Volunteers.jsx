@@ -27,7 +27,6 @@ const HeaderTopRight = styled.div`
 
 // 로그인 시 웸컴 메시지 표시 
 // const WelcomeText = styled.div`
-//   font-family: 'Noto Sans KR';
 //   font-size: 16px;
 //   font-weight: 500;
 //   color: #3a4044;
