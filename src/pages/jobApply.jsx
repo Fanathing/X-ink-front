@@ -225,10 +225,13 @@ const JobApply = () => {
     <Layout>
       <StyledJobApply>
         <div className="detail-header">
-          <Breadcrumb 
-            items={['전체 공고 목록' , job.title]} 
+          <Breadcrumb
+            items={[
+              { label: '전체 공고 목록', link: '/' },
+              { label: job.title },
+            ]}
             link="/main"
-            weight="700" 
+            weight="700"
             size="30px"
           />
         </div>
@@ -254,12 +257,7 @@ const JobApply = () => {
             <Spreater variant="thin" />
             <div className="card-position">
               <Text variant="subtitle">포지션</Text>
-              <Button
-                border={'1px solid #2C6AA9'}
-                radius={'4px'}
-                color={'#2c6aa9'}
-                backgroundColor={'#ffffff'}
-              >
+              <Button variant="sky-outline">
                 {job.position}
               </Button>
             </div>
@@ -280,7 +278,9 @@ const JobApply = () => {
               )}
             </div>
             <div className="card-apply-button">
-              <Button variant="sky" onClick={handleApply}>지원하기</Button>
+              <Button variant="sky" onClick={handleApply}>
+                지원하기
+              </Button>
             </div>
           </div>
         </div>

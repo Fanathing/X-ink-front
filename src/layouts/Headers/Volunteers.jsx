@@ -25,18 +25,19 @@ const HeaderTopRight = styled.div`
   align-items: center;
 `;
 
-const WelcomeText = styled.div`
-  font-family: 'Noto Sans KR';
-  font-size: 16px;
-  font-weight: 500;
-  color: #3a4044;
-  margin-right: 15px;
+// 로그인 시 웸컴 메시지 표시 
+// const WelcomeText = styled.div`
+//   font-family: 'Noto Sans KR';
+//   font-size: 16px;
+//   font-weight: 500;
+//   color: #3a4044;
+//   margin-right: 15px;
 
-  strong {
-    font-weight: 700;
-    color: #03407e;
-  }
-`;
+  // strong {
+  //   font-weight: 700;
+  //   color: #03407e;
+  // }
+// `;
 
 /**
  * Volunteers - 개인 회원용 HeaderTop 컴포넌트
@@ -69,20 +70,18 @@ const Volunteers = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
           // 로그인 상태
           <>
             {/* 환영 메시지와 프로필 정보 */}
-            <WelcomeText>
+            {/* <WelcomeText>
               <strong>{userName}</strong>
               님 환영합니다
-            </WelcomeText>
+            </WelcomeText> */}
 
-            {/* 프로필과 프로필 정보 표시 */}
+            {/* 프로필 정보 표시 */}
             <ProfileWithInfo
               name={userName}
               subInfo={`지원한 기업: ${applicationCount}`}
-              imageUrl={profileImage}
-              notificationCount={notificationCount}
             />
 
-            {/* 드롭다운 메뉴 */}
+            {/* 드롭다운 메뉴 (프로필 이미지 포함) */}
             <ProfileMenu
               variant="user"
               imageUrl={profileImage}

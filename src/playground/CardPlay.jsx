@@ -133,6 +133,7 @@ const CardPlay = () => {
             role={card.role}
             bio={card.bio}
           />
+          
         ))}
       </div>
 

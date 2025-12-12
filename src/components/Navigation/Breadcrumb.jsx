@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import ArrowIcon from '../Icons/ArrowIcon';
 
 const BreadcrumbWrapper = styled.nav`
   display: flex;
@@ -8,7 +9,7 @@ const BreadcrumbWrapper = styled.nav`
   align-items: center;
   gap: 10px;
   width: 100%;
-  height: 56px;
+  height: 36px;
   background: #ffffff;
 `;
 
@@ -26,7 +27,7 @@ const BreadcrumbLink = styled.span`
   }
 `;
 
-const BreadcrumbCurrent = styled.span`
+const BreadcrumbCurrent = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   font-style: normal;
   font-weight: 700;
@@ -35,11 +36,11 @@ const BreadcrumbCurrent = styled.span`
   color: #272727;
 `;
 
-const Separator = styled.span`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 30px;
-  color: #838383;
-  user-select: none;
+const BreadcrumbItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 `;
 
 const Breadcrumb = ({ items, weight, size }) => {
@@ -63,24 +64,28 @@ const Breadcrumb = ({ items, weight, size }) => {
         const link = typeof item === 'object' ? item.link : null;
 
         return (
-          <span key={index}>
+          <BreadcrumbItem key={index}>
             {isLast ? (
               <BreadcrumbCurrent>{label}</BreadcrumbCurrent>
             ) : link ? (
-              <BreadcrumbLink 
-                onClick={() => handleLinkClick(link)} 
-                weight={weight} 
+              <BreadcrumbLink
+                onClick={() => handleLinkClick(link)}
+                weight={weight}
                 size={size}
               >
                 {label}
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbLink as="span" weight={weight} size={size}>
+              <BreadcrumbLink as="div" weight={weight} size={size}>
                 {label}
               </BreadcrumbLink>
             )}
-            {!isLast && <Separator> &gt; </Separator>}
-          </span>
+            {!isLast && (
+              <ArrowIcon 
+                direction="right"                 
+              />
+            )}
+          </BreadcrumbItem>
         );
       })}
     </BreadcrumbWrapper>

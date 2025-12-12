@@ -14,20 +14,25 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       setError(null);
       const userData = await getCurrentUser();
-      
+
       // userData 구조에 따라 정규화
       // getCurrentUser 응답: { type: "volunteers"|"companies", data: {...} } 또는 { userType: "individual"|"company", ... }
       let role = null;
       let userInfo = {};
-      
+
       // 응답 구조 1: { type, data }
       if (userData.type) {
         role = userData.type; // "companies" | "volunteers"
         userInfo = userData.data || {};
-      } 
+      }
       // 응답 구조 2: 직접 사용자 정보 (로그인 응답과 동일)
       else if (userData.userType) {
-        role = userData.userType === 'individual' ? 'volunteers' : userData.userType === 'company' ? 'companies' : null;
+        role =
+          userData.userType === 'individual'
+            ? 'volunteers'
+            : userData.userType === 'company'
+              ? 'companies'
+              : null;
         userInfo = { ...userData };
       }
       // 응답 구조 3: 이미 role이 있는 경우
@@ -35,12 +40,12 @@ export const AuthProvider = ({ children }) => {
         role = userData.role;
         userInfo = { ...userData };
       }
-      
+
       const normalizedUser = {
         ...userInfo,
         role,
       };
-      
+
       setUser(normalizedUser);
     } catch (err) {
       if (err.message === 'UNAUTHORIZED') {
@@ -59,7 +64,14 @@ export const AuthProvider = ({ children }) => {
     const normalizedUser = {
       ...userData,
       // userType이 있으면 role로 변환
-      role: userData.role || userData.type || (userData.userType === 'individual' ? 'volunteers' : userData.userType === 'company' ? 'companies' : null),
+      role:
+        userData.role ||
+        userData.type ||
+        (userData.userType === 'individual'
+          ? 'volunteers'
+          : userData.userType === 'company'
+            ? 'companies'
+            : null),
     };
     setUser(normalizedUser);
     setLoading(false);
@@ -79,37 +91,28 @@ export const AuthProvider = ({ children }) => {
   // userType을 role로 매핑: "individual" -> "volunteers", "company" -> "companies"
   let rawRole = user?.role || user?.type || null;
   if (!rawRole && user?.userType) {
-    rawRole = user.userType === 'individual' ? 'volunteers' : user.userType === 'company' ? 'companies' : null;
+    rawRole =
+      user.userType === 'individual'
+        ? 'volunteers'
+        : user.userType === 'company'
+          ? 'companies'
+          : null;
   }
-  
+
   // 단수형도 복수형으로 정규화 (백엔드에서 "volunteer" 또는 "company"로 올 수 있음)
   let normalizedRole = rawRole;
   if (rawRole === 'volunteer') normalizedRole = 'volunteers';
   if (rawRole === 'company') normalizedRole = 'companies';
-  
-  // 기존 코드 호환성을 위해 role은 단수형으로 반환 (JobApplyForm에서 "volunteer" 체크)
-  // 정규화된 형태는 isIndividual, isCompany로 사용
-  let role = rawRole;
-  if (role === 'volunteers') role = 'volunteer'; // JobApplyForm 호환성을 위해 단수형으로 변환
-  if (role === 'companies') role = 'company'; // Jobs.jsx 호환성을 위해 단수형으로 변환
-  
+
+  // role은 정규화된 형태로 반환 (Jobs.jsx에서 "companies" 체크, JobApplyForm에서 "volunteer" 체크)
+  let role = normalizedRole;
+  if (normalizedRole === 'volunteers') role = 'volunteer'; // JobApplyForm 호환성을 위해 단수형으로 변환
+  // 'companies'는 그대로 유지 (Jobs.jsx에서 'companies' 체크)
+
   const isCompany = normalizedRole === 'companies';
   const isIndividual = normalizedRole === 'volunteers';
   const isKakaoUser = user?.provider === 'kakao' || user?.PROVIDER === 'kakao';
-  
-  // 디버깅: role 추출 결과 확인
-  if (user) {
-    console.log('🔍 AuthContext - role 추출:', {
-      user,
-      role,
-      normalizedRole,
-      isCompany,
-      isIndividual,
-      hasUserType: !!user?.userType,
-      hasType: !!user?.type,
-      hasRole: !!user?.role
-    });
-  }
+
 
   return (
     <AuthContext.Provider

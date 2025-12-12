@@ -5,7 +5,7 @@ import Container from '../layouts/container';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
-import thumbnailImage from '../assets/images/image.png';
+import defaultProfileImage from '../assets/images/profile.png';
 import { getJobs } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 
@@ -32,7 +32,7 @@ const ErrorMessage = styled.div`
   border-radius: 12px;
 `;
 
-const Main = () => {
+const JobApplicantSearch = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -40,7 +40,7 @@ const Main = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   
-  const ITEMS_PER_PAGE = 12; // 3줄 x 4개
+  const ITEMS_PER_PAGE = 15; // 5줄 x 3개
 
   // 공고 데이터 로드
   useEffect(() => {
@@ -49,22 +49,23 @@ const Main = () => {
         setLoading(true);
         setError(null);
         const jobsData = await getJobs();
-        // 백엔드 응답을 프론트엔드 카드 형식으로 변환
+        // 백엔드 응답을 profile3 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => ({
           id: job.id,
-          image: thumbnailImage, // TODO: 나중에 기업별 이미지 추가
-          dday: job.dday,
-          label: job.position,
-          title: job.title,
+          profileImage: defaultProfileImage, // 프로필 이미지
+          name: job.companyName || '구직자', // 이름 (회사명 사용)
+          labels: job.position ? [job.position] : [], // 포지션을 라벨로 변환
+          email: `applicant${job.id}@example.com`, // 이메일 (더미 데이터)
+          role: job.position || '', // 역할 (포지션)
+          bio: job.title || '', // 소개 (공고 제목)
           companyId: job.companyId,
-          companyName: job.companyName,
           status: job.status,
         }));
         
         setJobs(formattedCards);
       } catch (err) {
-        console.error('❌ 공고 목록 로드 실패:', err);
-        setError('공고 목록을 불러오는데 실패했습니다.');
+        console.error('❌ 구직자 목록 로드 실패:', err);
+        setError('구직자 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
       }
@@ -77,7 +78,7 @@ const Main = () => {
   const filteredJobs = useMemo(() => {
     let result = [...jobs];
 
-    // 드롭다운 필터 적용
+    // 드롭다운 필터 적용 (labels 배열에서 검색)
     if (filter !== '전체') {
       // 드롭다운 옵션을 실제 position 값으로 매핑
       const positionMap = {
@@ -86,16 +87,20 @@ const Main = () => {
         '블록체인': '블록체인'
       };
       const positionValue = positionMap[filter] || filter;
-      result = result.filter(job => job.label === positionValue);
+      result = result.filter(job => 
+        job.labels && job.labels.some(label => label === positionValue)
+      );
     }
 
-    // 검색어 필터 적용
+    // 검색어 필터 적용 (name, email, role, bio에서 검색)
     if (searchTerm.trim() !== '') {
       const searchLower = searchTerm.toLowerCase();
       result = result.filter(job => 
-        job.title.toLowerCase().includes(searchLower) ||
-        job.companyName.toLowerCase().includes(searchLower) ||
-        job.label.toLowerCase().includes(searchLower)
+        (job.name && job.name.toLowerCase().includes(searchLower)) ||
+        (job.email && job.email.toLowerCase().includes(searchLower)) ||
+        (job.role && job.role.toLowerCase().includes(searchLower)) ||
+        (job.bio && job.bio.toLowerCase().includes(searchLower)) ||
+        (job.labels && job.labels.some(label => label.toLowerCase().includes(searchLower)))
       );
     }
 
@@ -136,8 +141,8 @@ const Main = () => {
       <Layout>
         <Container >
           <PageWrapper>
-            <Breadcrumb variant="breadcrumb" items={['전체 공고 목록']} size="60px"/>
-            <LoadingMessage>공고 목록을 불러오는 중입니다...</LoadingMessage>
+            <Breadcrumb variant="breadcrumb" items={['구직자 탐색']} size="60px"/>
+            <LoadingMessage>구직자 목록을 불러오는 중입니다...</LoadingMessage>
           </PageWrapper>
         </Container>
       </Layout>
@@ -148,14 +153,11 @@ const Main = () => {
   if (error) {
     return (
       <Layout>
-        <Container >
+        <Container>
           <PageWrapper>
-            <Breadcrumb
-              variant="breadcrumb"
-              items={['전체 공고 목록']}
-            />
+            <Breadcrumb variant="breadcrumb" items={['구직자 탐색']} />
             {/* 검색 영역 */}
-            <SearchSection>등록된 공고가 없습니다.</SearchSection>
+            <SearchSection>등록된 구직자가 없습니다.</SearchSection>
             <ErrorMessage>{error || '등록된 공고가 없습니다.'}</ErrorMessage>
           </PageWrapper>
         </Container>
@@ -170,7 +172,7 @@ const Main = () => {
           {/* 현재 위치 네비게이션 */}
           <Breadcrumb
             variant="breadcrumb"
-            items={['전체 공고 목록']}
+            items={['구직자 탐색']}
             size="60px"
           />
 
@@ -180,14 +182,15 @@ const Main = () => {
             onSearch={handleSearch}
           >
             {filteredJobs.length > 0
-              ? `총 ${filteredJobs.length}개의 공고들을 모았어요!`
-              : '등록된 공고가 없습니다.'}
+              ? `총 ${filteredJobs.length}명의 구직자들을 모았어요 !`
+              : '등록된 구직자가 없습니다.'}
           </SearchSection>
 
           {/* 카드 목록 */}
           {filteredJobs.length > 0 ? (
             <>
-              <CardGrid cards={paginatedJobs} />
+            <CardGrid variant='profile3' cards={paginatedJobs}/>
+
               <Pagination 
                 currentPage={currentPage} 
                 totalPages={totalPages} 
@@ -197,8 +200,8 @@ const Main = () => {
           ) : (
             <ErrorMessage>
               {searchTerm || filter !== '전체' 
-                ? '검색 조건에 맞는 공고가 없습니다.' 
-                : '등록된 공고가 없습니다.'}
+                ? '검색 조건에 맞는 구직자가 없습니다.' 
+                : '등록된 구직자가 없습니다.'}
             </ErrorMessage>
           )}
         </PageWrapper>
@@ -207,4 +210,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default JobApplicantSearch;

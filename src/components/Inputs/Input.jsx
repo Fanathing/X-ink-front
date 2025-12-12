@@ -49,7 +49,6 @@ const StyledLabelInput = styled.input`
   height: ${(props) => props.height || '59px'};
   border-radius: 8px;
   border: 1px solid #808080;
-  padding: 12px 14px;
   gap: 10px;
   background-color: #ffffff;
   font-size: 18px;
@@ -75,7 +74,6 @@ const SearchInputWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 14px;
   gap: 10px;
   border-bottom: 2px solid #3a4044;
 `;

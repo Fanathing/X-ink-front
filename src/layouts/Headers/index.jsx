@@ -89,30 +89,20 @@ const Header = () => {
   const { user, isAuthenticated, isCompany, isKakaoUser, logout, loading } =
     useAuth();
 
-  // 디버깅: 헤더 렌더링 상태 확인
-  console.log('🎨 Header 렌더링:', {
-    user,
-    isAuthenticated,
-    isCompany,
-    loading,
-    userRole: user?.role,
-    userType: user?.userType,
-  });
-
   // 메뉴 선택 처리
   const handleMenuSelect = async (menuId) => {
     switch (menuId) {
       case 'profile':
-        navigate('/profile');
+        navigate('/myprofile');
         break;
       case 'applications':
-        navigate('/my-applications');
+        navigate('/myapplications');
         break;
       case 'jobManagement':
-        navigate('/job-management');
+        navigate('/jobs');
         break;
       case 'applicantManagement':
-        navigate('/applicant-management');
+        navigate('/applicantmanagement');
         break;
       case 'logout':
         await logout();
@@ -168,7 +158,9 @@ const Header = () => {
           <CategoryLink to="/">전체 공고 목록</CategoryLink>
 
           {/* 구직자 탐색은 기업 로그인 시에만 표시 */}
-          {isCompany && <CategoryLink to="/search">구직자 탐색</CategoryLink>}
+          {isCompany && (
+            <CategoryLink to="/jobapplicantsearch">구직자 탐색</CategoryLink>
+          )}
         </HeaderCategory>
       </HeaderInner>
     </StyledHeaderWrap>
