@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
-import Container from '../layouts/container';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
@@ -144,16 +143,14 @@ const ApplicantManagement = () => {
   if (loading) {
     return (
       <Layout>
-        <Container>
-          <PageWrapper>
-            <Breadcrumb
-              variant="breadcrumb"
-              items={['지원자 관리']}
-              size="60px"
-            />
-            <LoadingMessage>지원자 목록을 불러오는 중입니다...</LoadingMessage>
-          </PageWrapper>
-        </Container>
+        <PageWrapper>
+          <Breadcrumb
+            variant="breadcrumb"
+            items={['지원자 관리']}
+            size="60px"
+          />
+          <LoadingMessage>지원자 목록을 불러오는 중입니다...</LoadingMessage>
+        </PageWrapper>
       </Layout>
     );
   }
@@ -162,59 +159,55 @@ const ApplicantManagement = () => {
   if (error) {
     return (
       <Layout>
-        <Container>
-          <PageWrapper>
-            <Breadcrumb variant="breadcrumb" items={['지원자 관리']} />
-            {/* 검색 영역 */}
-            <SearchSection>등록된 지원자가 없습니다.</SearchSection>
-            <ErrorMessage>{error || '등록된 지원자가 없습니다.'}</ErrorMessage>
-          </PageWrapper>
-        </Container>
+        <PageWrapper>
+          <Breadcrumb variant="breadcrumb" items={['지원자 관리']} />
+          {/* 검색 영역 */}
+          <SearchSection>등록된 지원자가 없습니다.</SearchSection>
+          <ErrorMessage>{error || '등록된 지원자가 없습니다.'}</ErrorMessage>
+        </PageWrapper>
       </Layout>
     );
   }
 
   return (
     <Layout>
-      <Container>
-        <PageWrapper>
-          {/* 현재 위치 네비게이션 */}
-          <Breadcrumb
-            variant="breadcrumb"
-            items={['지원자 관리']}
-            size="60px"
-          />
+      <PageWrapper>
+        {/* 현재 위치 네비게이션 */}
+        <Breadcrumb
+          variant="breadcrumb"
+          items={['지원자 관리']}
+          size="60px"
+        />
 
-          {/* 검색 영역 */}
-          <SearchSection
-            onFilterChange={handleFilterChange}
-            onSearch={handleSearch}
-          >
-            {filteredJobs.length > 0
-              ? `총 ${filteredJobs.length}명의 지원자가 있어요 !`
+        {/* 검색 영역 */}
+        <SearchSection
+          onFilterChange={handleFilterChange}
+          onSearch={handleSearch}
+        >
+          {filteredJobs.length > 0
+            ? `총 ${filteredJobs.length}명의 지원자가 있어요 !`
+            : '등록된 지원자가 없습니다.'}
+        </SearchSection>
+
+        {/* 카드 목록 */}
+        {filteredJobs.length > 0 ? (
+          <>
+            <CardGrid variant="profile3" cards={paginatedJobs} />
+
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
+            />
+          </>
+        ) : (
+          <ErrorMessage>
+            {searchTerm || filter !== '전체'
+              ? '검색 조건에 맞는 지원자가 없습니다.'
               : '등록된 지원자가 없습니다.'}
-          </SearchSection>
-
-          {/* 카드 목록 */}
-          {filteredJobs.length > 0 ? (
-            <>
-              <CardGrid variant="profile3" cards={paginatedJobs} />
-
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                onPageChange={handlePageChange}
-              />
-            </>
-          ) : (
-            <ErrorMessage>
-              {searchTerm || filter !== '전체'
-                ? '검색 조건에 맞는 지원자가 없습니다.'
-                : '등록된 지원자가 없습니다.'}
-            </ErrorMessage>
-          )}
-        </PageWrapper>
-      </Container>
+          </ErrorMessage>
+        )}
+      </PageWrapper>
     </Layout>
   );
 };

@@ -12,6 +12,7 @@ const StyledJoin = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  gap: 40px;
 `;
 
 const stepsData = [
@@ -26,7 +27,7 @@ const JoinStep2 = () => {
   const type = searchParams.get('type');
 
   return (
-    <Layout>
+    <Layout padding={'60px 0'}>
       <StyledJoin>
         {type === 'volunteer' && <VolunteerTitle2 />}
         {type === 'companies' && <CompaniesTitle2 />}

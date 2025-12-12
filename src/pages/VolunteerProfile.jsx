@@ -10,11 +10,9 @@ const StyledVolunteerProfile = styled.div`
   justify-content: center;
   flex-direction: row;
   gap: 29px;
-  margin-bottom: 40px;
 `;
 
 const StyledTop = styled.div`
-  margin-top: 40px;
   margin-bottom: 20px;
   display: flex;
   align-items: flex-start;

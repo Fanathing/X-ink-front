@@ -15,7 +15,6 @@ const StyledApplyInputs = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  padding: 60px 0;
 
   & > .inputs-first {
     margin-top: 10px;

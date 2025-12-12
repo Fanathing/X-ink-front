@@ -3,7 +3,6 @@ import FooterText from '../components/Texts/FooterText';
 
 const StyledFooter = styled.div`
   height: 127px;
-  padding: 20px 0;
   display: flex;
   flex-direction: column;
   justify-content: center; // column이니까 새로 정렬
@@ -29,10 +28,10 @@ const Footer = () => {
         </FooterText>
       </div>
       <div className="footer-list">
-        <FooterText fontSize={'14px'} fontWeight={'700'}>
+        <FooterText fontSize={'14px'} fontWeight={'900'}>
           이용 약관
         </FooterText>
-        <FooterText fontSize={'14px'} fontWeight={'700'}>
+        <FooterText fontSize={'14px'} fontWeight={'900'}>
           개인정보처리방침
         </FooterText>
       </div>

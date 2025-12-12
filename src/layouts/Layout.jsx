@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Header from './Headers';
-import Footer from './footer';
+import Footer from './Footer';
+import Container from './Container';
 
 const LayoutWrapper = styled.div`
   display: flex;
@@ -8,15 +9,11 @@ const LayoutWrapper = styled.div`
   min-height: 100vh;
 `;
 
-const MainContent = styled.main`
-  flex: 1;
-`;
-
-const Layout = ({ children }) => {
+const Layout = ({ children, padding }) => {
   return (
     <LayoutWrapper>
       <Header />
-      <MainContent>{children}</MainContent>
+      <Container padding={padding}>{children}</Container>
       <Footer />
     </LayoutWrapper>
   );
