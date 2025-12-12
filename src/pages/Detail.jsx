@@ -9,7 +9,8 @@ import Spreater from '../components/Spreater/Spreater';
 import Button from '../components/Buttons/Button';
 import Logo from '../assets/images/Logo.png';
 import { getJobById } from '../services/api';
-
+import { formatDday } from '../utils/formatDday';
+  
 const StyledDetail = styled.div`
   display: flex;
   flex-direction: column;
@@ -223,10 +224,16 @@ const Detail = () => {
         <div className="detail-company-info">
           <Label variant="primary">{job.position}</Label>
           <Text>({job.volunteerCount || 0}명 지원)</Text>
-          <Text variant="title" color="red" size="16px">
-            {job.dday || ''}
+         <Text 
+            variant="title" 
+            color={formatDday(job.dday) === '오늘 마감' ? 'red' : 'red'} 
+            size="16px"
+          >
+            {formatDday(job.dday)}
+            </Text>
+          <Text variant="title" size="16px" color="#838383">
+            {getStatusText(job.status)}
           </Text>
-          <Text variant="title" size="16px" color="#838383">{getStatusText(job.status)}</Text>
         </div>
         <div className="detail-job-info">
           <div className="detail-company-info-img">

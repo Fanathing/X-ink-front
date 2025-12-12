@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import defaultImage from '../../assets/images/image.png';
 import defaultProfileImage from '../../assets/images/profile.png';
 import Label from '../Labels/Label';
+import { formatDday } from '../../utils/formatDday';
 
 // ============================================
 // Card1 - 기본 카드 (276x231)
@@ -72,7 +73,7 @@ const DdayText = styled.span`
   display: flex;
   align-items: center;
   text-align: right;
-  color: #838383;
+  color: ${props => props.$isToday ? '#D92828' : '#838383'};
 `;
 
 const Content = styled.div`
@@ -483,7 +484,7 @@ const renderCardByVariant = (variant, props) => {
           <Thumbnail>
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
-              <DdayText>{dday}</DdayText>
+              <DdayText $isToday={formatDday(dday) === '오늘 마감'}>{formatDday(dday)}</DdayText>
             </DdayWrapper>
           </Thumbnail>
           <Content>
@@ -608,7 +609,7 @@ const renderCardByVariant = (variant, props) => {
           <Thumbnail>
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
-              <DdayText>{dday}</DdayText>
+              <DdayText $isToday={formatDday(dday) === '오늘 마감'}>{formatDday(dday)}</DdayText>
               {<AppliedBadge>지원완료!</AppliedBadge>}
             </DdayWrapper>
           </Thumbnail>
@@ -628,7 +629,7 @@ const renderCardByVariant = (variant, props) => {
           <Thumbnail>
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
-              <DdayText>{dday}</DdayText>
+              <DdayText $isToday={formatDday(dday) === '오늘 마감'}>{formatDday(dday)}</DdayText>
             </DdayWrapper>
           </Thumbnail>
           <Content>

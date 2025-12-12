@@ -7,6 +7,7 @@ import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
 import { getJobs } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
+import { formatDday } from '../utils/formatDday';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ const MyApplications = () => {
         const formattedCards = jobsData.map((job) => ({
           id: job.id,
           image: thumbnailImage, // TODO: 나중에 기업별 이미지 추가
-          dday: job.dday,
+          dday: formatDday(job.dday),
           label: job.position,
           title: job.title,
           companyId: job.companyId,

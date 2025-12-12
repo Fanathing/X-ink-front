@@ -160,8 +160,8 @@ const JobApplicantSearch = () => {
   }
 
   return (
-    <Layout>
-      <PageWrapper>
+    <Layout >
+       <PageWrapper>
         {/* 현재 위치 네비게이션 */}
         <Breadcrumb
           variant="breadcrumb"
@@ -182,7 +182,7 @@ const JobApplicantSearch = () => {
         {/* 카드 목록 */}
         {filteredJobs.length > 0 ? (
           <>
-          <CardGrid variant='profile3' cards={paginatedJobs}/>
+          <CardGrid variant='profile3' spaceBetween={true} cards={paginatedJobs}/>
 
             <Pagination 
               currentPage={currentPage} 

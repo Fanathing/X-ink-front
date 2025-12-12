@@ -53,7 +53,9 @@ const Volunteers = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
   const userName = user?.name || user?.NAME || '사용자';
   const applicationCount = user?.applicationCount || 0;
   const notificationCount = user?.notificationCount || 0;
-  const profileImage = isKakaoUser ? (user?.profileImage || user?.PROFILE_IMAGE) : null;
+  // 프로필 이미지: 업로드된 이미지 우선, 카카오 프로필 이미지, 없으면 null
+  const profileImage = user?.THUMBNAIL_URL || user?.thumbnailUrl || 
+    (isKakaoUser ? (user?.profileImage || user?.PROFILE_IMAGE) : null);
 
   const handleLogoClick = () => {
     navigate('/');

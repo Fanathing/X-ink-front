@@ -93,7 +93,12 @@ const Header = () => {
   const handleMenuSelect = async (menuId) => {
     switch (menuId) {
       case 'profile':
-        navigate('/volunteer-profile');
+        // 사용자 타입에 따라 프로필 관리 페이지 분기
+        if (isCompany) {
+          navigate('/companies-profile');
+        } else {
+          navigate('/volunteer-profile');
+        }
         break;
       case 'applications':
         navigate('/myapplications');

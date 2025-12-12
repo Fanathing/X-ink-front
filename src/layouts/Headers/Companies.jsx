@@ -54,7 +54,9 @@ const Companies = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
   const companyName = user?.name || user?.NAME || user?.companyName || '기업';
   const jobCount = user?.jobCount || 0;
   const notificationCount = user?.notificationCount || 0;
-  const profileImage = isKakaoUser ? (user?.profileImage || user?.PROFILE_IMAGE) : null;
+  // 프로필 이미지: 업로드된 이미지 우선, 카카오 프로필 이미지, 없으면 null
+  const profileImage = user?.LOGO_URL || user?.logoUrl || 
+    (isKakaoUser ? (user?.profileImage || user?.PROFILE_IMAGE) : null);
 
   const handleLogoClick = () => {
     navigate('/');

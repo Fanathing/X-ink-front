@@ -101,7 +101,6 @@ const StyledSearchInput = styled.input`
 const SearchIcon = styled.svg`
   width: 25px;
   height: 25px;
-  cursor: pointer;
   stroke: #3a4044;
   stroke-width: 3px;
   fill: none;
