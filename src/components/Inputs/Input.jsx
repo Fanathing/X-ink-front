@@ -55,6 +55,7 @@ const StyledLabelInput = styled.input`
   font-weight: 400;
   color: #000000;
   box-sizing: border-box;
+  padding-left: 14px;
 
   &::placeholder {
     color: #c4c4c4;

@@ -58,7 +58,9 @@ const StyledUpload = styled.div`
 `;
 
 const Upload = ({ user }) => {
-  const [thunmbnail, setThunmbnail] = useState(user.THUMBNAIL_URL);
+  const [LOGO, setLOGO] = useState(user.LOGO_URL);
+  console.log(user, '테스트2');
+
   const fileRef = useRef(null);
 
   const handleUpload = async () => {
@@ -89,7 +91,7 @@ const Upload = ({ user }) => {
     <StyledUpload className="left">
       <img
         className="thumnail"
-        src={thunmbnail && thunmbnail}
+        src={LOGO && LOGO}
         alt="이미지가 없습니다 ㅜㅜ"
       />
       <input
@@ -106,7 +108,7 @@ const Upload = ({ user }) => {
             // 미리보기 URL로 변경
             const previewUrl = URL.createObjectURL(file);
 
-            setThunmbnail(previewUrl);
+            setLOGO(previewUrl);
           }
         }}
       />

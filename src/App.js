@@ -37,6 +37,7 @@ import JobApplyComplete from './pages/JobApplyComplete';
 import JobApply from './pages/JobApply';
 import MyApplications from './pages/MyApplications';
 import VolunteerProfile from './pages/VolunteerProfile';
+import CompaniesProfile from './pages/CompaniesProfile';
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
 
           {/* 일반 회원 프로필 관리 */}
           <Route path="/volunteer-profile" element={<VolunteerProfile />} />
+          <Route path="/companies-profile" element={<CompaniesProfile />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}

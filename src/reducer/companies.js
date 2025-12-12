@@ -5,6 +5,7 @@ export const initState = {
   email: '',
   phone: '',
   password: '',
+  description: '',
 };
 
 export const reducer = (state, action) => {
@@ -21,6 +22,8 @@ export const reducer = (state, action) => {
       return { ...state, phone: action.payload };
     case 'SET_PASSWORD':
       return { ...state, password: action.payload };
+    case 'SET_DESCRIPTION':
+      return { ...state, description: action.payload };
     default:
       return state;
   }

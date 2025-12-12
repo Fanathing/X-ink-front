@@ -7,7 +7,7 @@ import { initState, reducer } from '../../reducer/ProfileForm';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const StyledProfileForm = styled.div`
+const StyledVolunteerForm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -19,9 +19,10 @@ const StyledProfileForm = styled.div`
     flex-direction: row;
     gap: 30px;
   }
+
   & > button {
     width: 100%;
-    max-width: 931px;
+    max-width: 881px;
     height: 46px;
     background-color: #2c6aa9;
     color: #ffffff;
@@ -31,8 +32,8 @@ const StyledProfileForm = styled.div`
     border-radius: 4px;
   }
 `;
-const ProfileForm = ({ user }) => {
-  
+
+const VolunteerForm = ({ user }) => {
   const [state, dispatch] = useReducer(reducer, initState);
 
   const navigate = useNavigate();
@@ -64,13 +65,13 @@ const ProfileForm = ({ user }) => {
   };
 
   return (
-    <StyledProfileForm>
+    <StyledVolunteerForm>
       <div className="input-first">
         <Input
           variant={'label'}
           placeholder={'연락처를 입력해주세요'}
           label={'연락처 *'}
-          maxWidth={'450.5px'}
+          maxWidth={'425.5px'}
           height={'54px'}
           type={'text'}
           value={state.phone_number}
@@ -81,7 +82,7 @@ const ProfileForm = ({ user }) => {
         <Input
           variant={'label'}
           label={'생년월일 *'}
-          maxWidth={'450.5px'}
+          maxWidth={'425.5px'}
           height={'54px'}
           type={'date'}
           value={state.birth_date}
@@ -107,9 +108,9 @@ const ProfileForm = ({ user }) => {
         <TextArea
           label="자기 소개 *"
           placeholder="자기 소개를 적어주세요"
-          width={'931px'}
-          maxWidth={'931px'}
-          height={'221px'}
+          width={'881px'}
+          maxWidth={'881px'}
+          height={'200px'}
           value={state.intro}
           onChange={(e) =>
             dispatch({ type: 'SET_INTRO', payload: e.target.value })
@@ -119,8 +120,8 @@ const ProfileForm = ({ user }) => {
       <button type="button" onClick={handleSubmit}>
         프로필 등록
       </button>
-    </StyledProfileForm>
+    </StyledVolunteerForm>
   );
 };
 
-export default ProfileForm;
+export default VolunteerForm;

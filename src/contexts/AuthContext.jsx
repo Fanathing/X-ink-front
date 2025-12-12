@@ -117,7 +117,6 @@ export const AuthProvider = ({ children }) => {
   const isIndividual = normalizedRole === 'volunteers';
   const isKakaoUser = user?.provider === 'kakao' || user?.PROVIDER === 'kakao';
 
-
   return (
     <AuthContext.Provider
       value={{
