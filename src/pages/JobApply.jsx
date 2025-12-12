@@ -132,33 +132,30 @@ const JobApply = () => {
         setError(null);
         const jobData = await getJobById(id);
         
-        // 현재 로그인한 사용자의 companyLogoURL 가져오기 (기업 로그인인 경우)
-        const currentUserLogoURL = user?.LOGO_URL || user?.logoUrl || user?.companyLogoURL || null;
-        const currentUserId = user?.id || user?.ID || user?.companyId || null;
-        const currentUserName = user?.NAME || user?.name || user?.companyName || null;
+        console.log('🔍 JobApply.jsx - 이미지 로딩 확인:', {
+          jobId: id,
+          jobDataCompanyLogoURL: jobData.companyLogoURL,
+          jobDataLogoURL: jobData.logoURL,
+          jobDataLogo: jobData.logo,
+          jobDataCompanyId: jobData.companyId,
+          jobDataCompanyName: jobData.companyName,
+          jobDataAllKeys: Object.keys(jobData), // 모든 키 확인
+          userRole: user?.role,
+          userObject: user,
+        });
         
         // 기업 로고 URL 결정:
-        // 1. jobData.companyLogoURL (백엔드에서 직접 제공)
-        // 2. 현재 로그인한 사용자가 해당 공고의 기업 소유자인 경우에만 user.LOGO_URL 사용
-        //    - companyId로 매칭 (우선)
-        //    - companyName으로 매칭 (companyId가 없는 경우)
+        // 1. jobData.companyLogoURL (백엔드에서 직접 제공) - 가장 우선
+        // 2. jobData.logoURL, jobData.logo (다른 필드명 시도)
         // 3. 기본 이미지
-        if (!jobData.companyLogoURL && currentUserLogoURL) {
-          let isMatch = false;
-          
-          // 방법 1: companyId로 매칭 (가장 정확)
-          if (jobData.companyId && currentUserId) {
-            isMatch = String(jobData.companyId) === String(currentUserId);
-          }
-          // 방법 2: companyName으로 매칭 (companyId가 없는 경우 - 백엔드 수정 필요)
-          else if (jobData.companyName && currentUserName) {
-            isMatch = jobData.companyName === currentUserName;
-          }
-          
-          if (isMatch) {
-            jobData.companyLogoURL = currentUserLogoURL;
-          }
-        }
+        // 주의: 로그인한 사용자가 해당 기업 소유자인 경우에만 user.LOGO_URL을 사용하는 로직 제거
+        // 백엔드에서 각 공고의 companyLogoURL을 제공해야 함
+        let logoURL = jobData.companyLogoURL || jobData.logoURL || jobData.logo || null;
+        
+        // jobData에 최종 로고 URL 설정
+        jobData.companyLogoURL = logoURL;
+        
+        console.log('✅ JobApply.jsx - 최종 이미지 URL:', jobData.companyLogoURL || '기본 이미지 사용');
         
         setJob(jobData);
       } catch (err) {
