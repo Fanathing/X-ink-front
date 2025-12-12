@@ -557,7 +557,9 @@ const renderCardByVariant = (variant, props) => {
     }
 
     // ProfileCard4 - 지원완료 카드 (220x246)
-    case 'profile4':
+    case 'profile4': {
+      // intro 또는 bio 중 하나를 사용 (intro 우선)
+      const introText = intro || bio || '';
       return (
         <StyledProfileCard4>
           <ProfileHeader4>
@@ -580,11 +582,12 @@ const renderCardByVariant = (variant, props) => {
                 ))}
             </ProfileLabels4>
             <ProfileInfo4>{email}</ProfileInfo4>
-            <ProfileInfo4>{role}</ProfileInfo4>
-            <ProfileInfo4>{bio}</ProfileInfo4>
+            {phoneNumber && <ProfileInfo4>{phoneNumber}</ProfileInfo4>}
+            {introText && <ProfileInfo4>{introText}</ProfileInfo4>}
           </ProfileContent4>
         </StyledProfileCard4>
       );
+    }
 
     // 기존 profile variant는 profile1으로 매핑
     case 'profile':

@@ -1,6 +1,6 @@
 // AuthContext.jsx
 import { createContext, useContext, useState, useEffect } from 'react';
-import { getCurrentUser } from '../services/api';
+import { getCurrentUser, logout as logoutAPI } from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -81,10 +81,18 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
-  // 임시 로그아웃
-  const logout = () => {
-    console.warn('⚠ 임시 로그아웃 (백엔드 미구현)');
-    setUser(null);
+  // 로그아웃
+  const logout = async () => {
+    try {
+      console.log('🚪 로그아웃 요청 시작');
+      await logoutAPI();
+      console.log('✅ 로그아웃 성공');
+      setUser(null);
+    } catch (err) {
+      console.error('❌ 로그아웃 실패:', err);
+      // 에러가 발생해도 프론트엔드에서는 로그아웃 처리
+      setUser(null);
+    }
   };
 
   useEffect(() => {

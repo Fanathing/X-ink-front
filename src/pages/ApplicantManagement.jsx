@@ -5,7 +5,7 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import defaultProfileImage from '../assets/images/profile.png';
-import { getJobs } from '../services/api';
+import { getApplicants } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 
 const PageWrapper = styled.div`
@@ -40,37 +40,100 @@ const ApplicantManagement = () => {
 
   const ITEMS_PER_PAGE = 15; // 5줄 x 3개
 
-  // 공고 데이터 로드
+  // 지원자 데이터 로드
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchApplicants = async () => {
       try {
         setLoading(true);
         setError(null);
-        const jobsData = await getJobs();
-        // 백엔드 응답을 profile3 카드 형식으로 변환
-        const formattedCards = jobsData.map((job) => ({
-          id: job.id,
-          // 프로필 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
-          profileImage: job.thumbnail || defaultProfileImage,
-          name: job.companyName || '구직자', // 이름 (회사명 사용)
-          labels: job.position ? [job.position] : [], // 포지션을 라벨로 변환
-          email: `applicant${job.id}@example.com`, // 이메일 (더미 데이터)
-          role: job.position || '', // 역할 (포지션)
-          bio: job.title || '', // 소개 (공고 제목)
-          companyId: job.companyId,
-          status: job.status,
-        }));
-
+        console.log('📡 ApplicantManagement - API 호출 시작');
+        const applicantsData = await getApplicants();
+        console.log('📡 ApplicantManagement - API 호출 완료');
+        console.log('🔍 ApplicantManagement - API 응답:', applicantsData);
+        
+        // API 응답이 객체 형태인 경우 data 속성에서 배열 추출
+        let applicantsArray = null;
+        if (applicantsData && typeof applicantsData === 'object') {
+          if (applicantsData.data && Array.isArray(applicantsData.data)) {
+            applicantsArray = applicantsData.data;
+          } else if (Array.isArray(applicantsData)) {
+            applicantsArray = applicantsData;
+          } else if (applicantsData.applicants && Array.isArray(applicantsData.applicants)) {
+            applicantsArray = applicantsData.applicants;
+          }
+        }
+        
+        if (!applicantsArray || applicantsArray.length === 0) {
+          console.log('📝 등록된 지원자가 없습니다.');
+          setJobs([]);
+          setLoading(false);
+          return;
+        }
+        
+        // 백엔드 응답을 profile4 카드 형식으로 변환
+        const formattedCards = applicantsArray.map((applicant) => {
+          // 백엔드 API 응답 구조에 맞춰 필드 매핑
+          // 백엔드 필드: userName, userEmail, userPhoneNumber, userPosition, userIntro, thumbnailUrl
+          const name = applicant.userName || applicant.name || '지원자';
+          const email = applicant.userEmail || applicant.email || '';
+          const phoneNumber = applicant.userPhoneNumber || applicant.phoneNumber || applicant.phone_number || '';
+          const position = applicant.userPosition || applicant.position || '';
+          const thumbnailUrl = applicant.thumbnailUrl || applicant.thumbnail || null;
+          const intro = applicant.userIntro || applicant.intro || '';
+          
+          console.log('🔍 ApplicantManagement - 지원자 데이터:', {
+            id: applicant.id,
+            jobsId: applicant.jobsId,
+            userId: applicant.userId,
+            name,
+            email,
+            phoneNumber,
+            position,
+            thumbnailUrl,
+            intro,
+            status: applicant.status,
+          });
+          
+          return {
+            id: applicant.id,
+            jobsId: applicant.jobsId,
+            userId: applicant.userId,
+            // 썸네일 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
+            profileImage: thumbnailUrl || defaultProfileImage,
+            // 이름
+            name: name,
+            // 포지션 라벨
+            labels: position ? [position] : [],
+            // 이메일
+            email: email,
+            // 폰번호
+            phoneNumber: phoneNumber,
+            // 포지션 (role 필드에도 포함)
+            role: position || '',
+            // 자기소개 (intro)
+            bio: intro || '',
+            intro: intro || '',
+            // 지원완료 상태 (status가 "지원완료"이거나 항상 true)
+            isApplied: applicant.status === '지원완료' || true,
+          };
+        });
+        
+        console.log('✅ ApplicantManagement - 변환된 카드 목록:', formattedCards);
         setJobs(formattedCards);
       } catch (err) {
-        console.error('❌ 구직자 목록 로드 실패:', err);
-        setError('구직자 목록을 불러오는데 실패했습니다.');
+        console.error('❌ ApplicantManagement - 지원자 목록 로드 실패:', err);
+        console.error('❌ ApplicantManagement - 에러 상세:', {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+        });
+        setError('지원자 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchJobs();
+    fetchApplicants();
   }, []); // 컴포넌트 마운트 시 한 번만 실행
 
   // 필터와 검색어에 따라 jobs 필터링
@@ -101,6 +164,7 @@ const ApplicantManagement = () => {
           (job.email && job.email.toLowerCase().includes(searchLower)) ||
           (job.role && job.role.toLowerCase().includes(searchLower)) ||
           (job.bio && job.bio.toLowerCase().includes(searchLower)) ||
+          (job.intro && job.intro.toLowerCase().includes(searchLower)) ||
           (job.labels &&
             job.labels.some((label) =>
               label.toLowerCase().includes(searchLower),
@@ -192,7 +256,7 @@ const ApplicantManagement = () => {
         {/* 카드 목록 */}
         {filteredJobs.length > 0 ? (
           <>
-            <CardGrid variant="profile3" cards={paginatedJobs} />
+            <CardGrid variant="profile4" cards={paginatedJobs} />
 
             <Pagination
               currentPage={currentPage}

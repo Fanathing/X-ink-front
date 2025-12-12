@@ -173,6 +173,16 @@ export const getVolunteers = async () => {
   });
 };
 
+/**
+ * 지원자 목록 가져오기 (기업용 - 내 공고에 지원한 volunteer 목록)
+ * @returns {Promise<Array>} 지원자(volunteer) 목록
+ */
+export const getApplicants = async () => {
+  return await fetchAPI('/jobapplications/check', {
+    method: 'GET',
+  });
+};
+
 export default {
   getCurrentUser,
   logout,
@@ -187,4 +197,5 @@ export default {
   applyToJob,
   getMyApplications,
   getVolunteers,
+  getApplicants,
 };
