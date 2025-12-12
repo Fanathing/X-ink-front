@@ -132,6 +132,37 @@ export const getJobById = async (jobId) => {
   });
 };
 
+/**
+ * 공고 지원하기
+ * @param {number} jobId - 공고 ID (URL 파라미터로 전달)
+ * @param {Object} applicationData - 지원서 데이터 (name, email, phone_number, position, intro 등)
+ * @returns {Promise<Object>} 지원 결과
+ */
+export const applyToJob = async (jobId, applicationData) => {
+  return await fetchAPI(`/jobapplications/${jobId}`, {
+    method: 'POST',
+    body: JSON.stringify(applicationData),
+  });
+};
+
+/**
+ * 내가 지원한 공고 목록 가져오기
+ * @returns {Promise<Array>} 지원한 공고 목록
+ */
+export const getMyApplications = async () => {
+  console.log('📞 getMyApplications - API 함수 호출');
+  try {
+    const result = await fetchAPI('/jobapplications', {
+      method: 'GET',
+    });
+    console.log('📞 getMyApplications - API 함수 완료, 결과:', result);
+    return result;
+  } catch (error) {
+    console.error('📞 getMyApplications - API 함수 에러:', error);
+    throw error;
+  }
+};
+
 export default {
   getCurrentUser,
   logout,
@@ -143,4 +174,6 @@ export default {
   getJobs,
   getJobsFiltered,
   getJobById,
+  applyToJob,
+  getMyApplications,
 };

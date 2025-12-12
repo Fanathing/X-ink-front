@@ -485,6 +485,7 @@ const renderCardByVariant = (variant, props) => {
             <ThumbnailImage src={image || defaultImage} alt="thumbnail" />
             <DdayWrapper>
               <DdayText $isToday={formatDday(dday) === '오늘 마감'}>{formatDday(dday)}</DdayText>
+              {isApplied && <AppliedBadge>지원완료!</AppliedBadge>}
             </DdayWrapper>
           </Thumbnail>
           <Content>

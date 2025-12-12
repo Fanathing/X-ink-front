@@ -72,8 +72,8 @@ const StyledDetail = styled.div`
       flex: none;
 
       img {
-        width: 350px;
-        height: 125px;
+        width: 100%;
+        height: 100%;
  
       }
     }

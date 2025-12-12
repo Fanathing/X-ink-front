@@ -5,7 +5,7 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
-import { getJobs } from '../services/api';
+import { getJobs, getMyApplications } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 import { formatDday } from '../utils/formatDday';
 import { useAuth } from '../contexts/AuthContext';
@@ -49,7 +49,26 @@ const Main = () => {
       try {
         setLoading(true);
         setError(null);
-        const jobsData = await getJobs();
+        
+        // 공고 목록과 지원한 공고 목록을 동시에 가져오기
+        const [jobsData, appliedJobsData] = await Promise.all([
+          getJobs(),
+          // 개인 회원인 경우에만 지원한 공고 목록 가져오기
+          user?.role === 'volunteer' || user?.ROLE === 'volunteer' 
+            ? getMyApplications().catch(() => []) // 에러 발생 시 빈 배열 반환
+            : Promise.resolve([]),
+        ]);
+        
+        // 지원한 공고 ID 목록 추출
+        const appliedJobIds = new Set();
+        if (Array.isArray(appliedJobsData)) {
+          appliedJobsData.forEach((application) => {
+            const job = application.job || application;
+            if (job?.id) {
+              appliedJobIds.add(job.id);
+            }
+          });
+        }
         
         // 현재 로그인한 사용자의 companyLogoURL 가져오기 (기업 로그인인 경우)
         const currentUserLogoURL = user?.LOGO_URL || user?.logoUrl || user?.companyLogoURL || null;
@@ -81,6 +100,7 @@ const Main = () => {
             companyId: job.companyId,
             companyName: job.companyName,
             status: job.status,
+            isApplied: appliedJobIds.has(job.id), // 지원 여부 추가
           };
         });
         

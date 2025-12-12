@@ -59,18 +59,35 @@ const ApplyInputs = () => {
   const { id } = useParams();
 
   const handleSubmit = async () => {
+    console.log('🚀 ApplyInputs - 지원 요청 시작');
+    console.log('📋 지원 데이터:', {
+      jobId: id,
+      state: state,
+    });
+    
     try {
-      await axios.post(
+      const response = await axios.post(
         `${process.env.REACT_APP_BACK_URL}/jobapplications/${id}`,
         state,
         {
           withCredentials: true,
         },
       );
+      
+      console.log('✅ ApplyInputs - 지원 성공:', response.data);
+      console.log('✅ ApplyInputs - 응답 상태:', response.status);
+      console.log('✅ ApplyInputs - 완료 페이지로 이동:', `/jobapplyform/complete/${id}`);
+      
       navigate(`/jobapplyform/complete/${id}`);
     } catch (err) {
+      console.error('❌ ApplyInputs - 지원 실패:', err);
+      console.error('❌ ApplyInputs - 에러 응답:', err.response?.data);
+      console.error('❌ ApplyInputs - 에러 상태:', err.response?.status);
+      
       if (err.response) {
         alert(err.response.data.message);
+      } else {
+        alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
       }
     }
   };

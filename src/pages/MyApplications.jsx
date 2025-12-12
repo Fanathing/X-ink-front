@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import Layout from '../layouts/Layout';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
-import { getJobs } from '../services/api';
+import { getMyApplications } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 import { formatDday } from '../utils/formatDday';
 
@@ -32,6 +33,7 @@ const ErrorMessage = styled.div`
 `;
 
 const MyApplications = () => {
+  const location = useLocation();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -41,37 +43,139 @@ const MyApplications = () => {
 
   const ITEMS_PER_PAGE = 12; // 3줄 x 4개
 
-  // 공고 데이터 로드
+  // 내가 지원한 공고 데이터 로드
   useEffect(() => {
-    const fetchJobs = async () => {
+    console.log('🔄 MyApplications - useEffect 실행, location.pathname:', location.pathname);
+    
+    const fetchMyApplications = async () => {
       try {
+        console.log('📡 MyApplications - API 호출 시작');
         setLoading(true);
         setError(null);
-        const jobsData = await getJobs();
+        const applicationsData = await getMyApplications();
+        console.log('📡 MyApplications - API 호출 완료');
+        
+        // 디버깅: API 응답 구조 확인
+        console.log('🔍 MyApplications - API 응답 (전체):', applicationsData);
+        console.log('🔍 MyApplications - 응답 타입:', typeof applicationsData);
+        console.log('🔍 MyApplications - 배열 여부:', Array.isArray(applicationsData));
+        
+        // API 응답이 객체 형태인 경우 data 속성에서 배열 추출
+        let applicationsArray = null;
+        if (applicationsData && typeof applicationsData === 'object') {
+          // 경우 1: {success: true, data: [...]} 형태
+          if (applicationsData.data && Array.isArray(applicationsData.data)) {
+            applicationsArray = applicationsData.data;
+            console.log('✅ MyApplications - 응답에서 data 배열 추출:', applicationsArray);
+          }
+          // 경우 2: 직접 배열인 경우
+          else if (Array.isArray(applicationsData)) {
+            applicationsArray = applicationsData;
+            console.log('✅ MyApplications - 응답이 직접 배열');
+          }
+          // 경우 3: {applications: [...]} 형태
+          else if (applicationsData.applications && Array.isArray(applicationsData.applications)) {
+            applicationsArray = applicationsData.applications;
+            console.log('✅ MyApplications - 응답에서 applications 배열 추출');
+          }
+        }
+        
+        // 빈 배열인 경우 처리
+        if (!applicationsArray || applicationsArray.length === 0) {
+          console.log('📝 지원한 공고가 없습니다.');
+          setJobs([]);
+          setLoading(false);
+          return;
+        }
+        
+        // 첫 번째 항목 구조 확인
+        if (applicationsArray.length > 0) {
+          console.log('🔍 MyApplications - 첫 번째 항목 구조:', applicationsArray[0]);
+          console.log('🔍 MyApplications - 첫 번째 항목 키:', Object.keys(applicationsArray[0]));
+        }
+        
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
-        const formattedCards = jobsData.map((job) => ({
-          id: job.id,
-          // 기업 로고 URL이 있으면 사용, 없으면 기본 이미지
-          image: job.companyLogoURL || thumbnailImage,
-          dday: formatDday(job.dday),
-          label: job.position,
-          title: job.title,
-          companyId: job.companyId,
-          companyName: job.companyName,
-          status: job.status,
-        }));
+        // 다양한 응답 구조 처리:
+        // 1. { job: {...} } 형태
+        // 2. 직접 job 객체 형태
+        // 3. { jobId, ...job 정보 } 형태
+        const formattedCards = applicationsArray
+          .map((application, index) => {
+            console.log(`🔍 MyApplications - 항목 ${index} 처리:`, application);
+            
+            // 다양한 구조에서 job 정보 추출
+            let job = null;
+            
+            // 경우 1: application.job이 있는 경우
+            if (application.job) {
+              job = application.job;
+              console.log(`  ✅ 경우 1: application.job 사용`);
+            }
+            // 경우 2: application이 직접 job 정보인 경우 (id, title 등이 바로 있음)
+            else if (application.id && (application.title || application.companyName)) {
+              job = application;
+              console.log(`  ✅ 경우 2: application이 직접 job 정보`);
+            }
+            // 경우 3: application.jobId가 있고 다른 필드들이 있는 경우
+            else if (application.jobId) {
+              // jobId를 id로 매핑하고 나머지 필드 사용
+              job = {
+                id: application.jobId,
+                ...application,
+              };
+              console.log(`  ✅ 경우 3: application.jobId 사용`);
+            }
+            
+            // job 정보가 없으면 스킵
+            if (!job || !job.id) {
+              console.warn(`  ⚠️ 항목 ${index} - job 데이터 추출 실패:`, application);
+              return null;
+            }
+            
+            console.log(`  ✅ 항목 ${index} - 추출된 job:`, job);
+            
+            return {
+              id: job.id,
+              // 기업 로고 URL이 있으면 사용, 없으면 기본 이미지
+              image: job.companyLogoURL || job.logoURL || thumbnailImage,
+              dday: formatDday(job.dday),
+              label: job.position,
+              title: job.title,
+              companyId: job.companyId,
+              companyName: job.companyName,
+              status: job.status,
+              isApplied: true, // 내 지원 목록이므로 항상 true
+            };
+          })
+          .filter((card) => card !== null); // null 제거
 
+        console.log('✅ 변환된 카드 목록:', formattedCards);
+        console.log('✅ 변환된 카드 개수:', formattedCards.length);
         setJobs(formattedCards);
       } catch (err) {
-        console.error('❌ 공고 목록 로드 실패:', err);
-        setError('공고 목록을 불러오는데 실패했습니다.');
+        console.error('❌ 지원한 공고 목록 로드 실패:', err);
+        console.error('❌ 에러 상세:', {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+        });
+        
+        // 404나 빈 응답인 경우는 에러가 아닌 빈 목록으로 처리
+        if (err.message?.includes('404') || 
+            err.message?.includes('Not Found') ||
+            err.response?.status === 404) {
+          console.log('📝 지원한 공고가 없습니다. (404)');
+          setJobs([]);
+        } else {
+          setError('지원한 공고 목록을 불러오는데 실패했습니다.');
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchJobs();
-  }, []); // 컴포넌트 마운트 시 한 번만 실행
+    fetchMyApplications();
+  }, [location.pathname]); // 페이지 경로가 변경될 때마다 실행 (다른 페이지에서 지원 후 돌아올 때)
 
   // 필터와 검색어에 따라 jobs 필터링
   const filteredJobs = useMemo(() => {
