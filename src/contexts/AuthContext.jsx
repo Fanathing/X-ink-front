@@ -19,11 +19,13 @@ export const AuthProvider = ({ children }) => {
       // getCurrentUser 응답: { type: "volunteers"|"companies", data: {...} } 또는 { userType: "individual"|"company", ... }
       let role = null;
       let userInfo = {};
+      
 
       // 응답 구조 1: { type, data }
       if (userData.type) {
         role = userData.type; // "companies" | "volunteers"
         userInfo = userData.data || {};
+        
       }
       // 응답 구조 2: 직접 사용자 정보 (로그인 응답과 동일)
       else if (userData.userType) {
@@ -34,6 +36,7 @@ export const AuthProvider = ({ children }) => {
               ? 'companies'
               : null;
         userInfo = { ...userData };
+        
       }
       // 응답 구조 3: 이미 role이 있는 경우
       else if (userData.role) {
@@ -44,6 +47,7 @@ export const AuthProvider = ({ children }) => {
       const normalizedUser = {
         ...userInfo,
         role,
+        
       };
 
       setUser(normalizedUser);

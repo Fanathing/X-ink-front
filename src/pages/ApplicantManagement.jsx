@@ -11,6 +11,7 @@ import Pagination from '../components/Pagination/Pagination';
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 20px;
 `;
 
 const LoadingMessage = styled.div`

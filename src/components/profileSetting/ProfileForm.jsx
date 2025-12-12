@@ -32,6 +32,7 @@ const StyledProfileForm = styled.div`
   }
 `;
 const ProfileForm = ({ user }) => {
+  
   const [state, dispatch] = useReducer(reducer, initState);
 
   const navigate = useNavigate();

@@ -14,8 +14,6 @@ const BreadcrumbWrapper = styled.nav`
 `;
 
 const BreadcrumbLink = styled.span`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: ${(props) => props.weight || '400px'};
   font-size: ${(props) => props.size || '16px'};
   line-height: 24px;
@@ -28,8 +26,6 @@ const BreadcrumbLink = styled.span`
 `;
 
 const BreadcrumbCurrent = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
-  font-style: normal;
   font-weight: 700;
   font-size: 30px;
   line-height: 24px;

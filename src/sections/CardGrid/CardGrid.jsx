@@ -7,7 +7,7 @@ const GridWrapper = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: ${props => props.$cardCount <= 3 ? 'flex-start' : 'space-between'};
+  justify-content: ${props => props.$cardCount <= 3 && props.justify === 'flex-start'};
   gap: 20px;
   margin-top: ${(props) => props.marginTop || '20px'};
   width: 100%;
