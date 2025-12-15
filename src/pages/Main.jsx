@@ -70,24 +70,7 @@ const Main = () => {
           });
         }
         
-        // 현재 로그인한 사용자의 companyLogoURL 가져오기 (기업 로그인인 경우)
-        const currentUserLogoURL = user?.LOGO_URL || user?.logoUrl || user?.companyLogoURL || null;
-        const currentUserId = user?.id || user?.ID || user?.companyId || null;
-        
-        console.log('🔍 Main.jsx - 이미지 로딩 확인:', {
-          userRole: user?.role,
-          currentUserLogoURL,
-          currentUserId,
-          jobsDataLength: jobsData.length,
-          firstJob: jobsData[0] ? {
-            id: jobsData[0].id,
-            companyLogoURL: jobsData[0].companyLogoURL,
-            companyId: jobsData[0].companyId,
-            companyName: jobsData[0].companyName,
-            allKeys: Object.keys(jobsData[0]), // 모든 키 확인
-          } : null,
-        });
-        
+
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => {
           // 기업 로고 URL 결정 우선순위:
@@ -97,16 +80,6 @@ const Main = () => {
           // 주의: 로그인한 사용자가 해당 기업 소유자인 경우에만 user.LOGO_URL을 사용하는 로직 제거
           // 백엔드에서 각 공고의 companyLogoURL을 제공해야 함
           let logoURL = job.companyLogoURL || job.logoURL || job.logo || null;
-          
-          console.log(`🔍 Main.jsx - 공고 ${job.id} 이미지 확인:`, {
-            jobCompanyLogoURL: job.companyLogoURL,
-            jobLogoURL: job.logoURL,
-            jobLogo: job.logo,
-            jobCompanyId: job.companyId,
-            jobCompanyName: job.companyName,
-            finalLogoURL: logoURL,
-            willUseDefault: !logoURL,
-          });
           
           return {
             id: job.id,

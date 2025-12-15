@@ -46,10 +46,7 @@ const ApplicantManagement = () => {
       try {
         setLoading(true);
         setError(null);
-        console.log('📡 ApplicantManagement - API 호출 시작');
         const applicantsData = await getApplicants();
-        console.log('📡 ApplicantManagement - API 호출 완료');
-        console.log('🔍 ApplicantManagement - API 응답:', applicantsData);
         
         // API 응답이 객체 형태인 경우 data 속성에서 배열 추출
         let applicantsArray = null;
@@ -64,7 +61,6 @@ const ApplicantManagement = () => {
         }
         
         if (!applicantsArray || applicantsArray.length === 0) {
-          console.log('📝 등록된 지원자가 없습니다.');
           setJobs([]);
           setLoading(false);
           return;
@@ -80,20 +76,8 @@ const ApplicantManagement = () => {
           const position = applicant.userPosition || applicant.position || '';
           const thumbnailUrl = applicant.thumbnailUrl || applicant.thumbnail || null;
           const intro = applicant.userIntro || applicant.intro || '';
-          
-          console.log('🔍 ApplicantManagement - 지원자 데이터:', {
-            id: applicant.id,
-            jobsId: applicant.jobsId,
-            userId: applicant.userId,
-            name,
-            email,
-            phoneNumber,
-            position,
-            thumbnailUrl,
-            intro,
-            status: applicant.status,
-          });
-          
+              
+                    
           return {
             id: applicant.id,
             jobsId: applicant.jobsId,
@@ -118,8 +102,26 @@ const ApplicantManagement = () => {
           };
         });
         
-        console.log('✅ ApplicantManagement - 변환된 카드 목록:', formattedCards);
         setJobs(formattedCards);
+        
+        // 지원자 목록을 로드했을 때, 확인한 지원자 ID를 로컬 스토리지에 저장
+        // 이렇게 하면 헤더의 알림 카운트가 업데이트됨
+        try {
+          const applicantIds = applicantsArray
+            .map(applicant => applicant.id || applicant.userId)
+            .filter(id => id != null)
+            .map(id => String(id));
+          
+          if (applicantIds.length > 0) {
+            localStorage.setItem('viewedApplicants', JSON.stringify(applicantIds));
+            console.log('✅ ApplicantManagement - 확인한 지원자 ID 저장:', applicantIds);
+            
+            // 지원자 확인 이벤트 발생 (헤더의 알림 카운트 업데이트)
+            window.dispatchEvent(new CustomEvent('applicantsViewed'));
+          }
+        } catch (storageErr) {
+          console.error('❌ ApplicantManagement - 로컬 스토리지 저장 실패:', storageErr);
+        }
       } catch (err) {
         console.error('❌ ApplicantManagement - 지원자 목록 로드 실패:', err);
         console.error('❌ ApplicantManagement - 에러 상세:', {
