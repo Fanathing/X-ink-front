@@ -256,7 +256,7 @@ const ApplicantManagement = () => {
         {/* 카드 목록 */}
         {filteredJobs.length > 0 ? (
           <>
-            <CardGrid variant="profile4" cards={paginatedJobs} />
+            <CardGrid variant="profile4" cards={paginatedJobs} gap='40px'/>
 
             <Pagination
               currentPage={currentPage}

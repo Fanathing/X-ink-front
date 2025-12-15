@@ -8,12 +8,12 @@ const GridWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: ${props => props.$cardCount <= 3 && props.spaceBetween ? 'space-between' : 'flex-start'};
-  gap: 20px;
+  gap: ${props => props.gap ? props.gap : '20px'};
   margin-top: ${(props) => props.marginTop || '20px'};
   width: 100%;
 `;
 
-const CardGrid = ({ cards, variant = 'default', marginTop, spaceBetween = false}) => {
+const CardGrid = ({ cards, variant = 'default', marginTop, gap ='20px', spaceBetween = false}) => {
   const navigate = useNavigate();
   const { isCompany, isIndividual } = useAuth();
 
@@ -50,11 +50,12 @@ const CardGrid = ({ cards, variant = 'default', marginTop, spaceBetween = false}
   };
   
   return (
-    <GridWrapper $cardCount={cards.length} marginTop={marginTop} spaceBetween={spaceBetween}>
+    <GridWrapper $cardCount={cards.length} marginTop={marginTop} spaceBetween={spaceBetween} gap={gap}>
       {cards.map((card, index) => (
         <Card 
           key={card.id || index} 
           variant={variant} 
+          gap={gap}
           spaceBetween={spaceBetween}
           {...card}
           onClick={() => handleCardClick(card)}

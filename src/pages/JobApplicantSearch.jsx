@@ -239,6 +239,7 @@ const JobApplicantSearch = () => {
           <>
             <CardGrid
               variant="profile3"
+              gap='40px'
               spaceBetween={true}
               cards={paginatedVolunteers}
             />
