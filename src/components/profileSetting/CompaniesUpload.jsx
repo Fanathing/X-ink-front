@@ -59,7 +59,6 @@ const StyledUpload = styled.div`
 
 const Upload = ({ user }) => {
   const [LOGO, setLOGO] = useState(user.LOGO_URL);
-  console.log(user, '테스트2');
 
   const fileRef = useRef(null);
 

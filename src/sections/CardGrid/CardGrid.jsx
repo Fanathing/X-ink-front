@@ -24,27 +24,17 @@ const CardGrid = ({ cards, variant = 'default', marginTop, gap ='20px', spaceBet
   const handleCardClick = (card) => {
     if (!card.id) return;
     
-    // 디버깅: 실제 값 확인
-    console.log('🔍 CardGrid - 라우팅 확인:', {
-      isCompany,
-      isIndividual,
-      cardId: card.id
-    });
-    
     // 로그인 상태에 따라 다른 페이지로 이동
     // 기업 로그인: Detail 페이지
     if (isCompany) {
-      console.log('✅ 기업 로그인 → Detail 페이지로 이동');
       navigate(`/detail/${card.id}`);
     } 
     // 개인 로그인(지원자): JobApply 페이지
     else if (isIndividual) {
-      console.log('✅ 개인 로그인 → JobApply 페이지로 이동');
       navigate(`/jobapply/${card.id}`);
     } 
     // 로그인하지 않은 경우 기본적으로 Detail 페이지로 이동
     else {
-      console.log('⚠️ 로그인 안 됨 → Detail 페이지로 이동 (기본)');
       navigate(`/detail/${card.id}`);
     }
   };

@@ -46,10 +46,7 @@ const JobApplicantSearch = () => {
       try {
         setLoading(true);
         setError(null);
-        console.log('📡 JobApplicantSearch - API 호출 시작');
         const volunteersData = await getVolunteers();
-        console.log('📡 JobApplicantSearch - API 호출 완료');
-        console.log('🔍 JobApplicantSearch - API 응답:', volunteersData);
         
         // API 응답이 객체 형태인 경우 data 속성에서 배열 추출
         let volunteersArray = null;
@@ -64,7 +61,6 @@ const JobApplicantSearch = () => {
         }
         
         if (!volunteersArray || volunteersArray.length === 0) {
-          console.log('📝 등록된 구직자가 없습니다.');
           setVolunteers([]);
           setLoading(false);
           return;
@@ -80,16 +76,6 @@ const JobApplicantSearch = () => {
           const thumbnailUrl = volunteer.thumbnailUrl || volunteer.thumbnail || null;
           const intro = volunteer.intro || ''; // 백엔드에서 intro로 정의됨
           
-          console.log('🔍 JobApplicantSearch - 유저 데이터:', {
-            id: volunteer.id,
-            name,
-            email,
-            phoneNumber,
-            position,
-            thumbnailUrl,
-            intro,
-          });
-          
           return {
             id: volunteer.id,
             // 프로필 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
@@ -103,26 +89,9 @@ const JobApplicantSearch = () => {
           };
         });
         
-        console.log('✅ JobApplicantSearch - 변환된 카드 목록:', formattedCards);
-        console.log('✅ JobApplicantSearch - 변환된 카드 개수:', formattedCards.length);
         setVolunteers(formattedCards);
       } catch (err) {
-        console.error('❌ JobApplicantSearch - 구직자 목록 로드 실패:', err);
-        console.error('❌ JobApplicantSearch - 에러 상세:', {
-          message: err.message,
-          response: err.response?.data,
-          status: err.response?.status,
-        });
-        
-        // 404 에러인 경우 특별 처리
-        if (err.message?.includes('404') || 
-            err.message?.includes('Not Found') ||
-            err.response?.status === 404) {
-          console.error('❌ JobApplicantSearch - 404 에러: /volunteers 엔드포인트를 찾을 수 없습니다.');
-          setError('구직자 목록 API를 찾을 수 없습니다. 백엔드 엔드포인트를 확인해주세요.');
-        } else {
-          setError('구직자 목록을 불러오는데 실패했습니다.');
-        }
+        setError('구직자 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
       }

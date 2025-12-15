@@ -114,21 +114,14 @@ const ApplicantManagement = () => {
           
           if (applicantIds.length > 0) {
             localStorage.setItem('viewedApplicants', JSON.stringify(applicantIds));
-            console.log('✅ ApplicantManagement - 확인한 지원자 ID 저장:', applicantIds);
             
             // 지원자 확인 이벤트 발생 (헤더의 알림 카운트 업데이트)
             window.dispatchEvent(new CustomEvent('applicantsViewed'));
           }
         } catch (storageErr) {
-          console.error('❌ ApplicantManagement - 로컬 스토리지 저장 실패:', storageErr);
+          // 로컬 스토리지 저장 실패 시 무시
         }
       } catch (err) {
-        console.error('❌ ApplicantManagement - 지원자 목록 로드 실패:', err);
-        console.error('❌ ApplicantManagement - 에러 상세:', {
-          message: err.message,
-          response: err.response?.data,
-          status: err.response?.status,
-        });
         setError('지원자 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);

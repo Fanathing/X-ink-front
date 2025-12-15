@@ -84,12 +84,9 @@ export const AuthProvider = ({ children }) => {
   // 로그아웃
   const logout = async () => {
     try {
-      console.log('🚪 로그아웃 요청 시작');
       await logoutAPI();
-      console.log('✅ 로그아웃 성공');
       setUser(null);
     } catch (err) {
-      console.error('❌ 로그아웃 실패:', err);
       // 에러가 발생해도 프론트엔드에서는 로그아웃 처리
       setUser(null);
     }

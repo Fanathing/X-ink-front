@@ -11,8 +11,6 @@ const Jobs = () => {
   const [jobExists, setJobExists] = useState(null);
   const { role, isAuthenticated, loading: authLoading } = useAuth();
   const navigate = useNavigate();
-  console.log(role);
-  console.log(isAuthenticated);
 
   //로그인 안 했거나 일반 회원으로 접근한 경우 차단
   useEffect(() => {
@@ -46,7 +44,7 @@ const Jobs = () => {
 
         setJobExists(res.data.exists);
       } catch (error) {
-        console.error('공고가 없다:', error);
+        // 에러 발생 시 무시
       } finally {
         setLoading(false);
       }

@@ -44,7 +44,6 @@ const VolunteerForm = ({ user }) => {
     dispatch({ type: 'SET_POSITION', payload: user.POSITION });
     dispatch({ type: 'SET_INTRO', payload: user.INTRO });
   }, [user]);
-  console.log(state);
 
   const handleSubmit = async () => {
     try {

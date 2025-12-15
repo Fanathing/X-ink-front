@@ -42,11 +42,8 @@ const LoginForm = () => {
       // API 호출
       const response = await volunteerLogin(state.email, state.password);
 
-      console.log('✅ 개인 로그인 API 응답:', response);
-
       // 로그인 응답에 user 데이터가 있으면 즉시 저장
       if (response.user) {
-        console.log('🔐 로그인 처리 (user 데이터):', response.user);
         login(response.user);
       }
 
@@ -56,15 +53,13 @@ const LoginForm = () => {
       // 사용자 정보 새로고침 (쿠키에서 최신 정보 가져오기)
       try {
         await refresh();
-        console.log('✅ 사용자 정보 새로고침 완료');
       } catch (refreshError) {
-        console.warn('⚠️ 사용자 정보 새로고침 실패 (계속 진행):', refreshError);
+        // 새로고침 실패 시 무시
       }
 
       // 메인 페이지로 이동
       navigate('/');
     } catch (error) {
-      console.error('❌ 로그인 에러:', error);
 
       if (error.message === 'UNAUTHORIZED') {
         setError('이메일 또는 비밀번호가 올바르지 않습니다.');

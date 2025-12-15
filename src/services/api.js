@@ -82,10 +82,8 @@ export const checkServerHealth = async () => {
       method: 'GET',
       credentials: 'include',
     });
-    console.log('✅ 서버 연결 성공:', response.status);
     return response.ok;
   } catch (error) {
-    console.error('❌ 서버 연결 실패:', error.message);
     return false;
   }
 };
@@ -150,17 +148,9 @@ export const applyToJob = async (jobId, applicationData) => {
  * @returns {Promise<Array>} 지원한 공고 목록
  */
 export const getMyApplications = async () => {
-  console.log('📞 getMyApplications - API 함수 호출');
-  try {
-    const result = await fetchAPI('/jobapplications', {
-      method: 'GET',
-    });
-    console.log('📞 getMyApplications - API 함수 완료, 결과:', result);
-    return result;
-  } catch (error) {
-    console.error('📞 getMyApplications - API 함수 에러:', error);
-    throw error;
-  }
+  return await fetchAPI('/jobapplications', {
+    method: 'GET',
+  });
 };
 
 /**

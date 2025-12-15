@@ -66,7 +66,6 @@ const Companies = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
       const viewed = localStorage.getItem('viewedApplicants');
       return viewed ? JSON.parse(viewed) : [];
     } catch (err) {
-      console.error('❌ Companies - 확인한 지원자 목록 읽기 실패:', err);
       return [];
     }
   };
@@ -110,13 +109,7 @@ const Companies = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
           : 0;
         
         setNewApplicantCount(newCount);
-        console.log('📊 Companies - 지원자 수 업데이트:', {
-          total: totalCount,
-          new: newCount,
-          viewed: viewedApplicantIds.length,
-        });
       } catch (err) {
-        console.error('❌ Companies - 지원자 수 가져오기 실패:', err);
         // 에러 발생 시 기본값 0 사용
         setApplicantCount(0);
         setNewApplicantCount(0);
@@ -127,7 +120,6 @@ const Companies = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
     
     // 지원자 관리 페이지에서 확인 이벤트 리스너
     const handleApplicantsViewed = () => {
-      console.log('🔄 Companies - 지원자 확인 이벤트 수신, 카운트 새로고침');
       fetchApplicantData();
     };
     

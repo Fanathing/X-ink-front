@@ -84,9 +84,7 @@ const Volunteers = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
         
         const count = applicationsArray ? applicationsArray.length : 0;
         setApplicationCount(count);
-        console.log('📊 Volunteers - 지원한 공고 수 업데이트:', count);
       } catch (err) {
-        console.error('❌ Volunteers - 지원한 공고 수 가져오기 실패:', err);
         // 에러 발생 시 기본값 0 사용
         setApplicationCount(0);
       }
@@ -96,7 +94,6 @@ const Volunteers = ({ user, isAuthenticated, isKakaoUser, onMenuSelect }) => {
     
     // 지원 완료 이벤트 리스너
     const handleApplicationSubmitted = () => {
-      console.log('🔄 Volunteers - 지원 완료 이벤트 수신, 카운트 새로고침');
       fetchApplicationCount();
     };
     

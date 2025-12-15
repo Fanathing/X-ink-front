@@ -54,7 +54,6 @@ const StyledTextArea = styled.textarea`
  * - value, onChange 등 textarea props passthrough
  */
 const TextArea = ({ label, placeholder, ...rest }) => {
-  console.log(rest);
 
   return (
     <Wrapper>

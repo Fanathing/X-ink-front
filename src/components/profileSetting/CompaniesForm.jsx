@@ -34,7 +34,6 @@ const CompaniesForm = ({ user }) => {
     dispatch({ type: 'SET_PHONE', payload: user.PHONE });
     dispatch({ type: 'SET_DESCRIPTION', payload: user.DESCRIPTION });
   }, [user]);
-  console.log(state);
 
   const handleSubmit = async () => {
     try {

@@ -59,11 +59,6 @@ const ApplyInputs = () => {
   const { id } = useParams();
 
   const handleSubmit = async () => {
-    console.log('🚀 ApplyInputs - 지원 요청 시작');
-    console.log('📋 지원 데이터:', {
-      jobId: id,
-      state: state,
-    });
     
     try {
       const response = await axios.post(

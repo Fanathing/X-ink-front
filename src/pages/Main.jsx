@@ -70,7 +70,6 @@ const Main = () => {
           });
         }
         
-
         // 백엔드 응답을 프론트엔드 카드 형식으로 변환
         const formattedCards = jobsData.map((job) => {
           // 기업 로고 URL 결정 우선순위:
@@ -96,7 +95,6 @@ const Main = () => {
         
         setJobs(formattedCards);
       } catch (err) {
-        console.error('❌ 공고 목록 로드 실패:', err);
         setError('공고 목록을 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);

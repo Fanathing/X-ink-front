@@ -133,18 +133,6 @@ const JobApply = () => {
         setError(null);
         const jobData = await getJobById(id);
         
-        console.log('🔍 JobApply.jsx - 이미지 로딩 확인:', {
-          jobId: id,
-          jobDataCompanyLogoURL: jobData.companyLogoURL,
-          jobDataLogoURL: jobData.logoURL,
-          jobDataLogo: jobData.logo,
-          jobDataCompanyId: jobData.companyId,
-          jobDataCompanyName: jobData.companyName,
-          jobDataAllKeys: Object.keys(jobData), // 모든 키 확인
-          userRole: user?.role,
-          userObject: user,
-        });
-        
         // MyApplications.jsx와 동일한 로직 사용
         // 기업 로고 URL 결정:
         // 1. jobData.companyLogoURL (백엔드에서 직접 제공) - 가장 우선
@@ -155,11 +143,8 @@ const JobApply = () => {
         // jobData에 최종 로고 URL 설정
         jobData.companyLogoURL = logoURL;
         
-        console.log('✅ JobApply.jsx - 최종 이미지 URL:', logoURL);
-        
         setJob(jobData);
       } catch (err) {
-        console.error('❌ 공고 상세 정보 로드 실패:', err);
         setError('공고 정보를 불러오는데 실패했습니다.');
       } finally {
         setLoading(false);
