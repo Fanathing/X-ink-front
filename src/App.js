@@ -13,6 +13,7 @@ import JobApplicantSearch from './pages/JobApplicantSearch';
 import ApplicantManagement from './pages/ApplicantManagement';
 
 // Playground imports (개발/테스트용)
+import TotalPlayground from './playground/TotalPlayground';
 import ButtonPlay from './playground/ButtonPlay';
 import TextPlay from './playground/TextPlay';
 import InputPlay from './playground/InputPlay';
@@ -92,6 +93,7 @@ function App() {
           {/* <Route path="/search" element={<JobSearch />} /> */}
 
           {/* Playground 라우트 (개발/테스트용) */}
+          <Route path="/playground" element={<TotalPlayground />} />
           <Route path="/button" element={<ButtonPlay />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/text" element={<TextPlay />} />
